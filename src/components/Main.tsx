@@ -11,7 +11,11 @@ import { useCheckNotEmptyObject } from '../hooks/useCheckEmptyObject';
 import { Login } from '../pages/login/index';
 import storage from 'redux-persist/lib/storage';
 import { useEffect } from 'react';
+import { Post } from '../pages/Post/index';
 
+/**
+ * @todo load first page on Home component
+ */
 export const Main =  () => {
 
 // useEffect(() => {
@@ -35,6 +39,7 @@ export const Main =  () => {
                             <Route path="/" element={<PrivateRoute />} >
                                 <Route path="/home" element={<Home />} />
                                 <Route path="/slider" element={<Slider />} />
+                                <Route path="/post" element={<Post />} />
                             </Route>
                             <Route path="/login" element={<Login />} />
                             <Route path="*" element={<Navigate to="/home" />} />

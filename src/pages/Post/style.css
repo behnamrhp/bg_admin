@@ -1,0 +1,19 @@
+img.thumbimg {
+  height: 11rem;
+  object-fit: cover;
+}
+
+.button-delete-post {
+  font-size: 0.8rem;
+  width: 7rem;
+}
+
+.post-details-caption {
+  display: -webkit-box;
+  padding: 0.4rem;
+  width: 95%;
+  height: 7rem;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
