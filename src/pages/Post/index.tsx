@@ -2,19 +2,75 @@ import './style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import {useEffect, useState} from 'react';
-import thumb from './../../assets/images/backgrounds/01.png';
 import { useGetPostQuery } from '../../redux/fetches/post';
+import { Loading } from '../../components/Loading';
+import { Pagination } from '../../components/Pagination';
+import { baseUrl } from '../../utils/configs/constants/global';
+import {  Modal, ModalBody, ModalHeader } from 'reactstrap';
+import { AddPostForm } from '../../components/AddPostForm';
 
 export const Post = () => {
     const [page , setPage] = useState<number>(1);
+    const [ isModalOpen, setIsModalOpen ] = useState<boolean>(false);
+    const {data, isLoading, isError} = useGetPostQuery(page);
 
-    const {data, isLoading, isError, isSuccess} = useGetPostQuery(page);
+
+    //render post items
+    const PostItems = () => {
+        return data.data.ids.map((id:number) => {
+            const post = data.data.entities[id];
+            return (
+
+                <div className="col-xl-4 col-lg-4 mt-4" key={'post_' + post.id} data-id={post.id}>
+                <div className="img-thumbnail  mb-3">
+                    
+                        <img src={baseUrl + '/images/posts/' + post.image} alt="thumb1" className="thumbimg  wd-100p" />
+                    
+                    <div className="caption">
+                        <h5>{post.subject}</h5>
+                        <p className="post-details-caption">{post.content}</p>
+                        <div className=" d-flex w-100 justify-content-around mt-2">
+                            <button  className="btn ripple btn-danger button-delete-post" role="button">
+                                <FontAwesomeIcon icon={faTrash} className="ms-2"/>
+                                حذف
+                            </button>
+                            <button className="btn ripple btn-primary button-delete-post " role="button">
+                                <FontAwesomeIcon icon={faPen} className="ms-2"/>
+                                ویرایش
+                            </button>
+                        </div>
+                        <div className="d-flex justify-content-end mt-2 w-100">
+                            <small>{post.dateTime}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            )
+        })
+    }
 
     useEffect(() => {
-     console.log(data);   
-    })
+        if(data?.page.total_page === 1 && +page !== 1) setPage(1); 
+    }, [data])
     return(
         <>
+        <Modal 
+        isOpen={isModalOpen}
+        toggle={() => setIsModalOpen(!isModalOpen)}
+        >
+            <ModalHeader 
+            isOpen={isModalOpen}
+            toggle={() => setIsModalOpen(!isModalOpen)}
+            >
+                افزودن پست
+            </ModalHeader>
+
+            <ModalBody>
+               <AddPostForm />
+            </ModalBody>
+        </Modal>
+
+            <Loading isFullWidth={false} isVisible={(isLoading)} />
             <div className="breadcrumb-header justify-content-between title-header">
                 <div className="left-content">
                     <div>
@@ -23,49 +79,23 @@ export const Post = () => {
                 </div>
             </div>
             
-            <div className="container content-container">
+            {data && !data.error && !isError &&  (<div className="container content-container">
                 <div className="row">
                     <div className="col-12 row justify-content-end ps-4 add-content">
-                        <button className="btn btn-block btn-primary col-12 col-sm-3 col-lg-2">
+            
+                        <button className="btn btn-block btn-primary col-12 col-sm-3 col-lg-2" onClick={() => setIsModalOpen(!isModalOpen)}>
                             افزودن پست
                         </button>
                     </div>
                     <div className="row mt-3 content_scrollable">     
 
-<<<<<<< HEAD
-                            <div className="col-xl-4 col-lg-5 col-md-6 col-sm-8 col-12 mt-4">
-=======
-                            <div className="col-xl-4 col-lg-4 mt-4">
->>>>>>> 698db325c7ccaa281e85aa01dc1111042111a0a3
-                                <div className="img-thumbnail  mb-3">
-                                    
-                                        <img src={thumb} alt="thumb1" className="thumbimg  wd-100p" />
-                                    
-                                    <div className="caption">
-                                        <h5>Thumbnail label</h5>
-                                        <p className="post-details-caption">sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
-                                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sapiente vero corrupti similique aut dignissimos reiciendis vitae incidunt? Est voluptatibus, labore, quibusdam blanditiis illum repudiandae doloremque aliquid placeat dicta ipsam odit!.</p>
-                                        <div className=" d-flex w-100 justify-content-around mt-2">
-                                            <a href="#" className="btn ripple btn-danger button-delete-post" role="button">
-                                                <FontAwesomeIcon icon={faTrash} className="ms-2"/>
-                                                حذف
-                                            </a>
-                                            <a href="#" className="btn ripple btn-primary button-delete-post " role="button">
-                                                <FontAwesomeIcon icon={faPen} className="ms-2"/>
-                                                ویرایش
-                                            </a>
-                                        </div>
-                                        <div className="d-flex justify-content-end mt-2 w-100">
-                                            <small>1400/7/20</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        {PostItems()}
 
                     </div>
+                    {data.page && +data.page.total_page !== 1 && (<Pagination page={data.page} setPage={setPage} />)}
 
                 </div>
-            </div>
+            </div>)}
         </>
     )
 }
