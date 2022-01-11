@@ -6,7 +6,7 @@ import { sliderApi } from '../fetches/slider';
 import { postApi } from '../fetches/post';
 
 const reducers = combineReducers({
-    user                      : userReducer,
+    user   : userReducer,
     [ sliderApi.reducerPath ] : sliderApi.reducer,
     [ postApi.reducerPath ]   : postApi.reducer
 })
