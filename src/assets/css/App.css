@@ -1,0 +1,282 @@
+@font-face {
+  font-family: iransans;
+  font-style: normal;
+  font-weight: normal;
+  src: url('./../fonts/IRANSansWeb.eot');
+  src: url('./../fonts/IRANSansWeb.eot?#iefix') format('embedded-opentype'),
+    url('./../fonts/IRANSansWeb.woff2') format('woff2'),
+    url('./../fonts/IRANSansWeb.woff') format('woff'),
+    url('./../fonts/IRANSansWeb.ttf') format('truetype'),
+    url('./../fonts/IRANSansWeb.svg') format('svg');
+}
+
+@font-face {
+  font-family: iransans-light;
+  font-style: normal;
+  font-weight: normal;
+  src: url('./../fonts/IRANSansWeb_Light.eot');
+  src: url('./../fonts/IRANSansWeb_Light.eot?#iefix')
+      format('embedded-opentype'),
+    url('./../fonts/IRANSansWeb_Light.woff2') format('woff2'),
+    url('./../fonts/IRANSansWeb_Light.woff') format('woff'),
+    url('./../fonts/IRANSansWeb_Light.ttf') format('truetype'),
+    url('./../fonts/IRANSansWeb_Light.svg') format('svg');
+}
+
+@font-face {
+  font-family: iransans-medium;
+  font-style: normal;
+  font-weight: normal;
+  src: url('./../fonts/IRANSansWeb_Medium.eot');
+  src: url('./../fonts/IRANSansWeb_Medium.eot?#iefix')
+      format('embedded-opentype'),
+    url('./../fonts/IRANSansWeb_Medium.woff2') format('woff2'),
+    url('./../fonts/IRANSansWeb_Medium.woff') format('woff'),
+    url('./../fonts/IRANSansWeb_Medium.ttf') format('truetype'),
+    url('./../fonts/IRANSansWeb_Medium.svg') format('svg');
+}
+
+@font-face {
+  font-family: iransans-bold;
+  font-style: normal;
+  font-weight: normal;
+  src: url('./../fonts/IRANSansWeb_Bold.eot');
+  src: url('./../fonts/IRANSansWeb_Bold.eot?#iefix') format('embedded-opentype'),
+    url('./../fonts/IRANSansWeb_Bold.woff2') format('woff2'),
+    url('./../fonts/IRANSansWeb_Bold.woff') format('woff'),
+    url('./../fonts/IRANSansWeb_Bold.ttf') format('truetype'),
+    url('./../fonts/IRANSansWeb_Bold.svg') format('svg');
+}
+
+:root {
+  --color-active-primary: #0162e8;
+  --header-height: 4rem;
+  --title-content-height: 1.5rem;
+  --pagination-height: 3rem;
+}
+
+body,
+body * {
+  margin: 0;
+  font-family: iransans, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  direction: rtl !important;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.title-header {
+  height: var(--title-content-height);
+}
+
+.main-header {
+  height: var(--header-height);
+}
+
+.page {
+  height: calc(100% - var(--header-height));
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+.App {
+  width: 100%;
+  height: 100%;
+}
+
+.disabled {
+  user-select: none !important;
+  cursor: auto !important;
+  pointer-events: none !important;
+  background: #bebebe !important;
+  box-shadow: unset !important;
+  color: #6d6d6d !important;
+}
+.disabled * {
+  user-select: none !important;
+  cursor: auto !important;
+  pointer-events: none !important;
+}
+
+#global-loader,
+.loader-img {
+  bottom: 0;
+  left: 0;
+  margin: 0 auto;
+  right: 0;
+  text-align: center;
+}
+
+#global-loader {
+  transition: all 0.3s;
+  background: #fff;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 50000;
+}
+
+.loader-img {
+  position: absolute;
+  top: 43%;
+}
+.main-content-container-custom {
+  margin-top: 4.3rem !important;
+}
+
+@media screen and (max-width: 768px) {
+  .main-content-container-custom {
+    margin-top: 0 !important;
+  }
+}
+
+.content-container {
+  height: calc(100% - var(--title-content-height) - 9rem);
+}
+
+.content_scrollable {
+  height: calc(100% - var(--pagination-height));
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.content-container > div {
+  height: 100%;
+}
+
+.pagination {
+  height: var(--pagination-height);
+}
+
+.add-content {
+  height: 2.5rem;
+}
+.slide:not(:last-child) {
+  border-bottom: 1px solid #0000001c;
+  width: 88%;
+  padding-bottom: 0.2rem;
+}
+.slide:last-child {
+  width: 100%;
+}
+.sidebar__user {
+  height: 9rem;
+}
+.slide:not(:first-child) {
+  margin-top: 0.5rem;
+}
+
+.active-sidebar-link {
+  fill: var(--color-active-primary) !important;
+  color: var(--color-active-primary) !important;
+  cursor: auto !important;
+  pointer-events: none !important;
+}
+.active-sidebar-link * {
+  fill: var(--color-active-primary) !important;
+  color: var(--color-active-primary) !important;
+  cursor: auto !important;
+  pointer-events: none !important;
+}
+
+.active {
+  fill: var(--color-active-primary) !important;
+  color: var(--color-active-primary) !important;
+  cursor: auto !important;
+  pointer-events: none !important;
+}
+
+.pointer {
+  cursor: pointer !important;
+}
+
+.side-menu__item {
+  display: flex;
+  flex-direction: column;
+  align-items: self-start;
+  justify-content: center;
+}
+
+.side-menu {
+  overflow-y: auto;
+  max-height: calc(100% - 8rem);
+}
+
+.rotate_180 {
+  transition: all 0.2s;
+  transform: rotate(180deg) !important;
+}
+
+.f-small-c {
+  font-size: 0.9rem;
+}
+
+.sidenav-toggled #userContainer > div {
+  justify-content: center !important;
+}
+
+.search-button,
+.search-button:hover,
+.search-button:active,
+.search-button:focus {
+  background: transparent !important;
+  box-shadow: unset !important;
+  left: 0.5rem !important;
+  width: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin: unset !important;
+}
+
+.search-button:hover,
+.search-button:active {
+  color: #9a9b9c !important;
+}
+
+.avatar-custom {
+  margin: 0 auto;
+  box-shadow: 1px 3px 4px #00000061;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #b4bdce !important;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #b4bdce !important;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #b4bdce !important;
+}
+
+.modal-header > .btn-close {
+  margin: unset !important;
+}
+
+body.swal2-height-auto.swal2-shown {
+  height: 100% !important;
+}

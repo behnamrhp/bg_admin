@@ -1,0 +1,103 @@
+.slider-item:hover .removeIconContainer {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.slider-item {
+  position: relative;
+  height: auto;
+  max-height: 7.1rem;
+}
+.removeIconContainer {
+  top: 3%;
+  width: 84%;
+  height: 93%;
+  font-size: 1.8rem;
+  display: flex;
+  border-radius: 3px;
+  justify-content: center;
+  align-items: center;
+  right: 8%;
+  transition: all 0.3s;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.slider-item {
+  height: 9.5rem;
+  max-height: unset !important;
+}
+.img-thumbnail {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+@media screen and (min-width: 1200px) {
+  .removeIconContainer {
+    right: 8%;
+    width: 86%;
+  }
+}
+@media screen and (min-width: 1250px) {
+  .removeIconContainer {
+    right: 6%;
+    width: 88%;
+  }
+}
+@media screen and (max-width: 995px) {
+  .removeIconContainer {
+    right: 9%;
+    width: 82%;
+  }
+}
+@media screen and (max-width: 935px) {
+  .removeIconContainer {
+    right: 11%;
+    width: 78%;
+  }
+}
+@media screen and (max-width: 860px) {
+  .removeIconContainer {
+    right: 12%;
+    width: 75%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .removeIconContainer {
+    top: 2%;
+    right: 5%;
+    height: 95%;
+    width: 90%;
+  }
+}
+@media screen and (max-width: 649px) {
+  .removeIconContainer {
+    right: 6%;
+    width: 88%;
+  }
+}
+@media screen and (max-width: 540px) {
+  .removeIconContainer {
+    right: 7%;
+    width: 86%;
+  }
+}
+@media screen and (max-width: 480px) {
+  .removeIconContainer {
+    right: 8%;
+    width: 83%;
+  }
+}
+@media screen and (max-width: 410px) {
+  .removeIconContainer {
+    right: 10%;
+    width: 80%;
+  }
+}
+@media screen and (max-width: 320px) {
+  .removeIconContainer {
+    right: 12%;
+    width: 76%;
+  }
+}
