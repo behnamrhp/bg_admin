@@ -26,6 +26,6 @@ export const wrapFileForms = ComponentFileForm  => ({...props}) => {
 
 
     return (
-        <ComponentFileForm {...props} file={file} src={src} setFile={setFile} fileValidation={fileValidation} setFileValidation={setFileValidation} user={user}/>
+        <ComponentFileForm {...props} file={file} src={src} setSrc={setSrc} setFile={setFile} fileValidation={fileValidation} setFileValidation={setFileValidation} user={user}/>
     )
 }

@@ -1,23 +1,26 @@
 import { Button } from 'reactstrap';
 import { LocalForm, Control, Errors } from 'react-redux-form';
-import { required, fileReader, byteToMb, staticMsgs } from '../../utils/helpers/viewHelpers';
+import { required, staticMsgs, customSwal } from '../../utils/helpers/viewHelpers';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
-import { Loading } from '../Loading';
 import { Alert } from '../Alert';
-import { userFetchResult } from '../../utils/configs/types/api';
 import DatePicker, { DateObject } from 'react-multi-date-picker';
-import type{Value} from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import { wrapFileForms } from '../../HOC/WrapFileForm';
 import { postFormProps } from './../../utils/configs/types/global'
+import { useAddPostMutation, useUpdatePostMutation } from './../../redux/fetches/post';
+import { Loading } from '../Loading';
 
- const PostForm = ({file, fileValidation, setFileValidation, setFile, src, setSrc, user}: postFormProps) => {  
-    const [content, setContent ] = useState<string>();
-    const [date, setDate] = useState<Value>();
 
+
+ const PostForm = ({setModalOpen, file, fileValidation, setFileValidation, setFile, src, user, isUpdate, updateParams}: postFormProps) => {  
+    const [ content, setContent ] = useState<string>();
+    const [ date, setDate ] = useState<string>();
+
+    const [ addPostDispatch, resultAddPost ]        = useAddPostMutation();
+    const [ updatePostDispatch, resultUpdatePost ]  = useUpdatePostMutation();
 
     //submit form and dispatch
     const submitForm = ({subject} : {subject :string}) => {
@@ -25,17 +28,62 @@ import { postFormProps } from './../../utils/configs/types/global'
         if(!date || date === '') return setFileValidation("لطفا تاریخ پست را وارد کنید");
         const args = {
             subject,
-            file,
+            image : file,
             content,
-            date
-        }
+            dateTime : date,
+            token    : user.token
+        };
+
+        addPostDispatch(args);
+    }
+
+    const submitUpdateForm = ({subject} : {subject :string}) => {
+        if(!file && !updateParams.image) return setFileValidation(staticMsgs().validateNotImageEntered);
+        if(!date || date === '') return setFileValidation("لطفا تاریخ پست را وارد کنید");
+
+        const args = {
+            id : updateParams.id,
+            subject,
+            ...(file && {image : file}),
+            content : content ? content : updateParams.content,
+            dateTime : date ? date : updateParams.dateTime,
+            token    : user.token
+        };
+
+        updatePostDispatch(args);
     }
     
+    //close and check result
+    useEffect(() => {
+        if((resultAddPost.isSuccess && resultAddPost.data?.result) || (resultUpdatePost.isSuccess && resultUpdatePost.data?.result)) {
+        
+            setModalOpen(false);
+             customSwal({
+                title : staticMsgs().congrat,
+                text  : isUpdate ? staticMsgs('پست').updateNewItem : staticMsgs('پست').savedNewItem,
+                icon  : "success",
+                showCancelButton: false,
+                showConfirmButton: false,
+            })
+        }
+    }, [resultAddPost, resultUpdatePost]);
+
     return (
-        // <Loading isFullWidth={true} isVisible={(addSliderResult.isLoading)} />
         <div>
+            <Loading isFullWidth={true} isVisible={(resultAddPost.isLoading || resultUpdatePost.isLoading)} />
+
             {fileValidation &&  (<Alert type='danger' text={fileValidation} isFullWidth={false} isVisible={!!fileValidation}/>) }
-            <LocalForm className='form row' model='add_post' onSubmit={(values => submitForm(values))}>
+            {(resultAddPost.isError || (resultAddPost.data?.error)) &&  (<Alert type='danger' text={staticMsgs().errorServer} isFullWidth={false} isVisible={!!resultAddPost.data?.error}/>) }
+            {(resultUpdatePost.isError || (resultUpdatePost.data?.error)) &&  (<Alert type='danger' text={staticMsgs().errorServer} isFullWidth={false} isVisible={!!resultUpdatePost.data?.error}/>) }
+
+            <LocalForm className='form row' model='add_post' 
+            onSubmit={(values => {
+                    isUpdate ? 
+                    submitUpdateForm(values) :
+                    submitForm(values)
+                    }
+                )    
+            }>
             <div className='form-group mb-3 col-12'>
                 <label htmlFor='subject' >عنوان</label>
                 
@@ -47,6 +95,8 @@ import { postFormProps } from './../../utils/configs/types/global'
                 validators={{
                     required
                 }}
+                defaultValue={(isUpdate)? updateParams.subject : ''}
+                
                 />
                 <Errors
                 className='text-danger'
@@ -60,7 +110,7 @@ import { postFormProps } from './../../utils/configs/types/global'
             <div className='form-group mb-3 col-12'>
                 <label htmlFor='content' >محتوا</label>
                 <textarea 
-                value={content}
+                defaultValue={(isUpdate)? ((updateParams.content && updateParams.content != 'undefined') ? updateParams.content : '') : content}
                 onChange={(e) => setContent(e.target.value)}
                 id='content'
                 className='form-control'
@@ -72,7 +122,7 @@ import { postFormProps } from './../../utils/configs/types/global'
                 <h6>تصویر پست</h6>
                 <label htmlFor="addSliderInput" className="addPostLabel mt-2 d-flex justify-content-center align-items-center pointer mb-3">
                     <FontAwesomeIcon icon={faPlus} />
-                    {src && (<img className="addsliderImg" src={src} />)}
+                    {(src || isUpdate) && (<img className="addsliderImg" src={(isUpdate)? updateParams.image : src} />)}
                 </label>
                 <input 
                 type="file" 
@@ -89,7 +139,7 @@ import { postFormProps } from './../../utils/configs/types/global'
                 <DatePicker 
                 calendar={persian}
                 locale={persian_fa}
-                value={date || ""}
+                value={(isUpdate)? updateParams.dateTime : date}
                 onChange={({day, year, month}: DateObject) =>{
                      setDate(`${year}/${month.number}/${day}`)
                      }}
@@ -103,7 +153,7 @@ import { postFormProps } from './../../utils/configs/types/global'
                     color='success'
                     type='submit'
                     >
-                        ذخیره
+                        {isUpdate ? 'بروزرسانی' : 'ذخیره'}
                 </Button>
             </div>
             

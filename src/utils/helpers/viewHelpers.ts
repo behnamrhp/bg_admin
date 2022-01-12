@@ -51,6 +51,7 @@ export const staticMsgs = (param: string | number = '') => {
         validateFileType        : 'فرمت عکس باید یکی از موارد jpg, png و یا jpeg باشد',
         congrat                 : 'تبریک!',
         savedNewItem            : `${param} مورد نظر شما با موفقیت افزوده شد`,
+        updateNewItem           : `${param} مورد نظر شما با موفقیت بروزرسانی شد`,
         errorServer             : 'متاسفانه در برقراری ارتباط مشکلی بوجود آمده لطفا بعدا امتحان کنید'
     }
 }
@@ -80,3 +81,4 @@ export const fileReader = (file: File, setSrc ) => {
     })
     fileReader.readAsDataURL(file);
 }
+

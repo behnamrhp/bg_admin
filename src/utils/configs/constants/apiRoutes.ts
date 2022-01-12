@@ -5,4 +5,5 @@ export enum apiRoute {
     sliderAdd    = "sliders/add",
     post         = "posts",
     postAdd      = "posts/add",
+    postUpdate   = "posts/update",
 }

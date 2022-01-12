@@ -61,5 +61,6 @@ export type postArgumentsAdd = {
     subject     : string;
     content     : string;
     dateTime    : string;
-    image       : File
+    image       : File;
+    token       : string;
 }

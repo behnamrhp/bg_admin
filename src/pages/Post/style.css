@@ -31,3 +31,9 @@ img.thumbimg {
   position: relative;
   overflow: hidden;
 }
+
+.post-content_scrollable {
+  height: calc(100% - var(--pagination-height) - 3rem);
+  overflow-x: hidden;
+  overflow-y: auto;
+}

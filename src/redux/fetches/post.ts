@@ -1,6 +1,6 @@
 import { fetchBaseQuery, createApi  } from "@reduxjs/toolkit/query/react";
 import { apiRoute, baseUrl, limitContents, Reducers } from "../../utils/configs/constants";
-import { apiTemplatePaginatedType, postFetchResult, Final_result, apiTemplateType, postArgumentsAdd } from '../../utils/configs/types/api';
+import { apiTemplatePaginatedType, postFetchResult, Final_result, apiTemplateType, postArgumentsAdd, booleanResult } from '../../utils/configs/types/api';
 import { createEntityAdapter } from "@reduxjs/toolkit";
 
 const postTag:string = "Posts";
@@ -56,9 +56,28 @@ export const postApi = createApi({
                 return [{ type: postTag, id:'PARTIAL-LIST'}]
             }
             
+        }),
+        updatePost : builder.mutation<booleanResult, postArgumentsAdd>({
+            query(args) {
+                const formData = new FormData();
+                for(const key in args){
+                    formData.append(key, args[key])
+                }
+
+                return {
+                    url     : apiRoute.postUpdate,
+                    method  : 'POST',
+                    body    : formData
+                } 
+            },
+            invalidatesTags : (result : booleanResult) => {
+                if(!result.result) return [];
+                return [{type : postTag, id : 'PARTIAL-LIST'}]
+            }
         })
+
     })
 })
 
-export const { useGetPostQuery, useAddPostMutation } = postApi;
+export const { useGetPostQuery, useAddPostMutation, useUpdatePostMutation } = postApi;
 

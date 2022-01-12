@@ -8,32 +8,51 @@ import { Pagination } from '../../components/Pagination';
 import { baseUrl } from '../../utils/configs/constants/global';
 import {  Modal, ModalBody, ModalHeader } from 'reactstrap';
 import { AddPostForm } from '../../components/AddPostForm';
+import { updatePostParams } from '../../utils/configs/types/global';
+
+
 
 export const Post = () => {
     const [page , setPage] = useState<number>(1);
-    const [ isModalOpen, setIsModalOpen ] = useState<boolean>(false);
+    const [ isModalOpen, setModalOpen ] = useState<boolean>(false);
+    const [ isUpdate, setIsUpdate ] = useState<boolean>();
+    const [ updateParams, setUpdateParams ] = useState<null | updatePostParams>(null);
+
     const {data, isLoading, isError} = useGetPostQuery(page);
 
 
     //render post items
     const PostItems = () => {
         return data.data.ids.map((id:number) => {
-            const post = data.data.entities[id];
+            const post  = data.data.entities[id];
+            const image = baseUrl + '/images/posts/' + post.image;
             return (
             <div className="col-xl-4 col-lg-4 mt-4" key={'post_' + post.id} data-id={post.id}>
                 <div className="img-thumbnail  mb-3">
                     
-                        <img src={baseUrl + '/images/posts/' + post.image} alt="thumb1" className="thumbimg  wd-100p" />
+                        <img src={image} alt="thumb1" className="thumbimg  wd-100p" />
                     
                     <div className="caption">
                         <h5>{post.subject}</h5>
-                        <p className="post-details-caption">{post.content}</p>
+                        <p className="post-details-caption">{(post.content && post.content != 'undefined') ? post.content : ''}</p>
                         <div className=" d-flex w-100 justify-content-around mt-2">
                             <button  className="btn ripple btn-danger button-delete-post" role="button">
                                 <FontAwesomeIcon icon={faTrash} className="ms-2"/>
                                 حذف
                             </button>
-                            <button className="btn ripple btn-primary button-delete-post " role="button">
+                            <button className="btn ripple btn-primary button-delete-post " role="button"
+                            onClick={() => {
+                                setModalOpen(!isModalOpen);
+                                setIsUpdate(true);
+                                setUpdateParams({
+                                    id          : post.id,
+                                    subject     : post.subject,
+                                    content     : post.content,
+                                    dateTime    : post.dateTime,
+                                    image
+                                });
+                            }}
+                            >
                                 <FontAwesomeIcon icon={faPen} className="ms-2"/>
                                 ویرایش
                             </button>
@@ -55,16 +74,16 @@ export const Post = () => {
         <>
         <Modal 
         isOpen={isModalOpen}
-        toggle={() => setIsModalOpen(!isModalOpen)}
+        toggle={() => setModalOpen(!setModalOpen)}
         >
             <ModalHeader 
-            toggle={() => setIsModalOpen(!isModalOpen)}
+            toggle={() => setModalOpen(!setModalOpen)}
             >
                 افزودن پست
             </ModalHeader>
 
             <ModalBody>
-               <AddPostForm />
+               <AddPostForm  setModalOpen={setModalOpen} updateParams={updateParams} isUpdate={isUpdate}/>
             </ModalBody>
         </Modal>
 
@@ -81,11 +100,17 @@ export const Post = () => {
                 <div className="row">
                     <div className="col-12 row justify-content-end ps-4 add-content">
             
-                        <button className="btn btn-block btn-primary col-12 col-sm-3 col-lg-2" onClick={() => setIsModalOpen(!isModalOpen)}>
+                        <button className="btn btn-block btn-primary col-12 col-sm-3 col-lg-2" 
+                        onClick={() => {
+                                    setModalOpen(!isModalOpen)
+                                    setIsUpdate(false);
+                                    setUpdateParams(null);    
+                                }
+                            }>
                             افزودن پست
                         </button>
                     </div>
-                    <div className="row mt-3 content_scrollable">     
+                    <div className="row mt-3 post-content_scrollable">     
 
                         {PostItems()}
 

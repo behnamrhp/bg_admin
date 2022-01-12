@@ -20,6 +20,14 @@ export interface swalTypes {
     showConfirmButton   ?: boolean,
 }
 
+export type updatePostParams = {
+    subject     : string;
+    content     : string;
+    dateTime    : string;
+    image       : string;
+    id          : number;
+}
+
 export type postFormProps = {
     file                : File,
     setFile             : React.Dispatch<React.SetStateAction<File>>,
@@ -29,4 +37,6 @@ export type postFormProps = {
     setSrc              : React.Dispatch<React.SetStateAction<string>>,
     user                : userFetchResult,
     setModalOpen        ?: React.Dispatch<React.SetStateAction<boolean>>,
+    isUpdate            ?: boolean,
+    updateParams        ?: updatePostParams
 }
