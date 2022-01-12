@@ -8,19 +8,10 @@ import { Button } from 'reactstrap';
 import { useAddSliderMutation } from './../../redux/fetches/slider';
 import { userFetchResult } from '../../utils/configs/types/api';
 import { Loading } from '../Loading';
-import { byteToMb, staticMsgs, customSwal } from '../../utils/helpers/viewHelpers';
+import { byteToMb, staticMsgs, customSwal, fileReader } from '../../utils/helpers/viewHelpers';
 import { maxFileSize } from '../../utils/configs/constants/global';
 
-const fileReader = (file: File, setSrc ) => {
-    const fileReader = new FileReader();
 
-    fileReader.addEventListener('load', (e) => {
-        const result = e.target.result;
-
-        setSrc(result);
-    })
-    fileReader.readAsDataURL(file);
-}
 
 export const AddSliderForm = ({setModalOpen})  => {
     //for send file to backend
@@ -65,7 +56,7 @@ export const AddSliderForm = ({setModalOpen})  => {
                 showConfirmButton: false,
             })
         }
-    }, [addSliderResult])
+    }, [addSliderResult]);
 
 
     return (
@@ -76,7 +67,7 @@ export const AddSliderForm = ({setModalOpen})  => {
             {(addSliderResult.isError || (addSliderResult.data?.error)) &&  (<Alert type='danger' text={staticMsgs().errorServer} isFullWidth={false} isVisible={!!addSliderResult.data?.error}/>) }
             <div className='mb-3'>برای انتخاب عکس برروی کادر زیر کلیک کنید</div>
 
-            <label htmlFor="addSliderInput" className="addSliderLabel d-flex justify-content-center align-items-center pointer mb-3">
+            <label htmlFor="addSliderInput" className="addSliderLabel mx-auto d-flex justify-content-center align-items-center pointer mb-3">
                 <FontAwesomeIcon icon={faPlus} />
                 {src && (<img className="addsliderImg" src={src} />)}
             </label>

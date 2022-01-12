@@ -59,3 +59,24 @@ export const byteToMb = (byte: number) => {
     const toMb = 1048576;
     return byte / toMb;
 }
+
+export const required   =  (val: string):boolean =>{
+    if(val && val.length) return true;
+    return false
+} 
+export const minLength  =  (len: number) => (val: string) =>{
+    if(val && (val.length >= len)) return true;
+    return false;
+} 
+export const validEmail =  (val: string) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
+
+export const fileReader = (file: File, setSrc ) => {
+    const fileReader = new FileReader();
+
+    fileReader.addEventListener('load', (e) => {
+        const result = e.target.result;
+
+        setSrc(result);
+    })
+    fileReader.readAsDataURL(file);
+}

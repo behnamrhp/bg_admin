@@ -12,16 +12,8 @@ import { useEffect } from "react";
 import { Loading } from "../../components/Loading";
 import { AnimatePresence, motion } from 'framer-motion';
 import { Alert } from "../../components/Alert";
+import { required, validEmail, minLength } from "../../utils/helpers/viewHelpers";
 
-const required   =  (val: string):boolean =>{
-    if(val && val.length) return true;
-    return false
-} 
-const minLength  =  (len: number) => (val: string) =>{
-    if(val && (val.length >= len)) return true;
-    return false;
-} 
-const validEmail =  (val: string) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 
 
 /**
