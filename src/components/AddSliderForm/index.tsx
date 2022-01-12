@@ -1,26 +1,16 @@
-import { useAppSelector } from '../../redux/hooks';
 import './style.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Alert } from '../Alert';
 import { Button } from 'reactstrap';
 import { useAddSliderMutation } from './../../redux/fetches/slider';
-import { userFetchResult } from '../../utils/configs/types/api';
 import { Loading } from '../Loading';
-import { byteToMb, staticMsgs, customSwal, fileReader } from '../../utils/helpers/viewHelpers';
-import { maxFileSize } from '../../utils/configs/constants/global';
+import { staticMsgs, customSwal } from '../../utils/helpers/viewHelpers';
+import { postFormProps } from './../../utils/configs/types/global'
+import { wrapFileForms } from '../../HOC/WrapFileForm';
 
-
-
-export const AddSliderForm = ({setModalOpen})  => {
-    //for send file to backend
-    const [ file , setFile]  = useState<File | null>(null);
-    //for show image 
-    const [ src , setSrc ]   = useState<string | null>(null);
-    const [ fileValidation, setFileValidation ] = useState<false | string>(false);
-    const user = useAppSelector(state => state.user.data) as userFetchResult;
-
+const SliderForm = ({setModalOpen, file, fileValidation, setFileValidation, setFile, src, setSrc, user}: postFormProps)  => {
     //add slider rtk query
     const [ addSliderDispatch, addSliderResult ] = useAddSliderMutation();
 
@@ -30,18 +20,6 @@ export const AddSliderForm = ({setModalOpen})  => {
        if(!file) return setFileValidation(staticMsgs().validateNotImageEntered);
        addSliderDispatch({slider : file , token : user.token});
     }
-
-    //set file and load image src
-    useEffect(() => {
-        if(!file) return;
-        
-        const size = byteToMb(file.size);
-        const type = file.type;
-        if( size > maxFileSize ) return setFileValidation(staticMsgs(maxFileSize).validateMaxFileSize);
-        if(type !== "image/png" && type !== "image/jpg" && type !== "image/jpeg") return setFileValidation(staticMsgs().validateFileType);
-
-        fileReader(file, setSrc);
-    }, [file]);
 
     //close and check result
     useEffect(() => {
@@ -87,3 +65,5 @@ export const AddSliderForm = ({setModalOpen})  => {
         </div>
     )
 }
+
+export const AddSliderForm = wrapFileForms(SliderForm);

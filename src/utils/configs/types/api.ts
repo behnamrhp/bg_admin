@@ -55,3 +55,11 @@ export type postFetchResult  = {
     content  : string;
     image    : string;
 }
+
+
+export type postArgumentsAdd = {
+    subject     : string;
+    content     : string;
+    dateTime    : string;
+    image       : File
+}

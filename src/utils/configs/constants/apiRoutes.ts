@@ -4,4 +4,5 @@ export enum apiRoute {
     sliderDelete = "sliders/delete",
     sliderAdd    = "sliders/add",
     post         = "posts",
+    postAdd      = "posts/add",
 }

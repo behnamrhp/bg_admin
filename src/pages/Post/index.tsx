@@ -20,8 +20,7 @@ export const Post = () => {
         return data.data.ids.map((id:number) => {
             const post = data.data.entities[id];
             return (
-
-                <div className="col-xl-4 col-lg-4 mt-4" key={'post_' + post.id} data-id={post.id}>
+            <div className="col-xl-4 col-lg-4 mt-4" key={'post_' + post.id} data-id={post.id}>
                 <div className="img-thumbnail  mb-3">
                     
                         <img src={baseUrl + '/images/posts/' + post.image} alt="thumb1" className="thumbimg  wd-100p" />
@@ -59,7 +58,6 @@ export const Post = () => {
         toggle={() => setIsModalOpen(!isModalOpen)}
         >
             <ModalHeader 
-            isOpen={isModalOpen}
             toggle={() => setIsModalOpen(!isModalOpen)}
             >
                 افزودن پست
