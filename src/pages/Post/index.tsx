@@ -12,7 +12,7 @@ export const Post = () => {
 
     useEffect(() => {
      console.log(data);   
-    })
+    });
     return(
         <>
             <div className="breadcrumb-header justify-content-between title-header">
@@ -32,11 +32,7 @@ export const Post = () => {
                     </div>
                     <div className="row mt-3 content_scrollable">     
 
-<<<<<<< HEAD
                             <div className="col-xl-4 col-lg-5 col-md-6 col-sm-8 col-12 mt-4">
-=======
-                            <div className="col-xl-4 col-lg-4 mt-4">
->>>>>>> 698db325c7ccaa281e85aa01dc1111042111a0a3
                                 <div className="img-thumbnail  mb-3">
                                     
                                         <img src={thumb} alt="thumb1" className="thumbimg  wd-100p" />
