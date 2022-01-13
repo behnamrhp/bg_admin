@@ -11,11 +11,13 @@ import { Pagination } from '../../components/Pagination';
 import { customSwal, staticMsgs } from '../../utils/helpers/viewHelpers';
 import { Modal, ModalBody, ModalHeader } from 'reactstrap';
 import { AddSliderForm } from '../../components/AddSliderForm';
+import { Alert } from '../../components/Alert';
 
 
 const deleteSlider = async (e:React.MouseEvent<HTMLElement, MouseEvent>, deleteSliderDispatch) => {
     const alert_result = await customSwal({
-        title : staticMsgs('اسلایدر').delete,
+        title : 'هشدار',
+        text  : staticMsgs('اسلایدر').delete,
         icon  : "warning",
         showCancelButton: true,
     })
@@ -69,6 +71,7 @@ export const Slider = () => {
         </Modal>
         
         <Loading isFullWidth={false} isVisible={(isLoading || deleteResult.isLoading)} />
+        {(deleteResult.isError || (deleteResult.data?.error)) &&  (<Alert type='danger' text={staticMsgs().errorServer} isFullWidth={true} isVisible={!!deleteResult.data?.error}/>) }
        
             <div className="breadcrumb-header justify-content-between title-header">
                 <div className="left-content">

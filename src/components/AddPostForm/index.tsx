@@ -17,7 +17,7 @@ import { Loading } from '../Loading';
 
  const PostForm = ({setModalOpen, file, fileValidation, setFileValidation, setFile, src, user, isUpdate, updateParams}: postFormProps) => {  
     const [ content, setContent ] = useState<string>();
-    const [ date, setDate ] = useState<string>();
+    const [ date, setDate ]       = useState<string>();
 
     const [ addPostDispatch, resultAddPost ]        = useAddPostMutation();
     const [ updatePostDispatch, resultUpdatePost ]  = useUpdatePostMutation();
@@ -39,7 +39,7 @@ import { Loading } from '../Loading';
 
     const submitUpdateForm = ({subject} : {subject :string}) => {
         if(!file && !updateParams.image) return setFileValidation(staticMsgs().validateNotImageEntered);
-        if(!date || date === '') return setFileValidation("لطفا تاریخ پست را وارد کنید");
+        if((!date || date === '') && !updateParams.dateTime) return setFileValidation("لطفا تاریخ پست را وارد کنید");
 
         const args = {
             id : updateParams.id,

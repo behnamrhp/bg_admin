@@ -74,10 +74,31 @@ export const postApi = createApi({
                 if(!result.result) return [];
                 return [{type : postTag, id : 'PARTIAL-LIST'}]
             }
+        }),
+        deletePost : builder.mutation<booleanResult, {id : string | number , token : string}>({
+            query(args) {
+                const formData = new FormData();
+                for(const key in args){
+                    formData.append(key, args[key])
+                }
+
+                return {
+                    url     : apiRoute.postDelete,
+                    method  : 'POST',
+                    body    : formData
+                }
+            },
+            invalidatesTags : (result : booleanResult, error, {id}) => {
+                if(!result.result) return [];
+                return [
+                    {type : postTag, id },
+                    {type : postTag, id : 'PARTIAL-LIST'}
+                ]
+            }
         })
 
     })
 })
 
-export const { useGetPostQuery, useAddPostMutation, useUpdatePostMutation } = postApi;
+export const { useGetPostQuery, useAddPostMutation, useUpdatePostMutation, useDeletePostMutation } = postApi;
 

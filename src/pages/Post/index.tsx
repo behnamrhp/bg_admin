@@ -2,13 +2,17 @@ import './style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import {useEffect, useState} from 'react';
-import { useGetPostQuery } from '../../redux/fetches/post';
+import { useDeletePostMutation, useGetPostQuery } from '../../redux/fetches/post';
 import { Loading } from '../../components/Loading';
 import { Pagination } from '../../components/Pagination';
 import { baseUrl } from '../../utils/configs/constants/global';
 import {  Modal, ModalBody, ModalHeader } from 'reactstrap';
 import { AddPostForm } from '../../components/AddPostForm';
 import { updatePostParams } from '../../utils/configs/types/global';
+import { useAppSelector } from '../../redux/hooks';
+import { userFetchResult } from '../../utils/configs/types/api';
+import { customSwal, staticMsgs } from '../../utils/helpers/viewHelpers';
+import { Alert } from '../../components/Alert';
 
 
 
@@ -17,8 +21,27 @@ export const Post = () => {
     const [ isModalOpen, setModalOpen ] = useState<boolean>(false);
     const [ isUpdate, setIsUpdate ] = useState<boolean>();
     const [ updateParams, setUpdateParams ] = useState<null | updatePostParams>(null);
+    const user = useAppSelector(state => state.user.data) as userFetchResult;
 
-    const {data, isLoading, isError} = useGetPostQuery(page);
+    const {data, isLoading, isError}                = useGetPostQuery(page);
+    const [ deletePostDispatch, resultDeletePost ]  = useDeletePostMutation();
+
+    const deletePost = async (id : number | string) => {
+        const alert_result = await customSwal({
+            title : 'هشدار',
+            text  : staticMsgs('پست').delete,
+            icon  : "warning",
+            showCancelButton: true,
+        })
+        if(!alert_result) return;
+
+        const params = {
+            id,
+            token : user.token
+        }
+    
+        await deletePostDispatch(params);
+    }
 
 
     //render post items
@@ -36,7 +59,11 @@ export const Post = () => {
                         <h5>{post.subject}</h5>
                         <p className="post-details-caption">{(post.content && post.content != 'undefined') ? post.content : ''}</p>
                         <div className=" d-flex w-100 justify-content-around mt-2">
-                            <button  className="btn ripple btn-danger button-delete-post" role="button">
+                            <button  className="btn ripple btn-danger button-delete-post" role="button"
+                            onClick={() => {
+                                deletePost(id)
+                            }}
+                            >
                                 <FontAwesomeIcon icon={faTrash} className="ms-2"/>
                                 حذف
                             </button>
@@ -70,9 +97,11 @@ export const Post = () => {
     useEffect(() => {
         if(data?.page.total_page === 1 && +page !== 1) setPage(1); 
     }, [data])
+
     return(
         <>
         <Modal 
+        centered
         isOpen={isModalOpen}
         toggle={() => setModalOpen(!setModalOpen)}
         >
@@ -87,7 +116,9 @@ export const Post = () => {
             </ModalBody>
         </Modal>
 
-            <Loading isFullWidth={false} isVisible={(isLoading)} />
+            <Loading isFullWidth={false} isVisible={(isLoading || resultDeletePost.isLoading)} />
+            {(resultDeletePost.isError || (resultDeletePost.data?.error)) &&  (<Alert type='danger' text={staticMsgs().errorServer} isFullWidth={true} isVisible={!!resultDeletePost.data?.error}/>) }
+        
             <div className="breadcrumb-header justify-content-between title-header">
                 <div className="left-content">
                     <div>
