@@ -7,15 +7,12 @@ import { skipToken } from "@reduxjs/toolkit/dist/query";
 
 export const Users = () => {
 	const user = useAppSelector(state => state.user.data) as userFetchResult ;
+	
+	const { data : usersListData , isLoading : usersListIsLoading, isError : usersListIsError } = useGetUserQuery(user.token ? user.token : skipToken);
 
-	const resultQuery = useGetUserQuery(user.token ? user.token : skipToken);
-
-	useEffect(() => {
-		console.log(resultQuery);		
-	}, [resultQuery])
     return (
     <>
-		<UserPresentation />
+		<UserPresentation usersListData={usersListData} usersListIsLoading={usersListIsLoading} usersListIsError={usersListIsError}/>
 	</>    
     )   
 }

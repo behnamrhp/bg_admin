@@ -7,5 +7,6 @@ export enum apiRoute {
     postAdd      = "posts/add",
     postUpdate   = "posts/update",
     postDelete   = "posts/delete",
-    get          = "get"
+    get          = "get",
+    delete       = "delete"
 }

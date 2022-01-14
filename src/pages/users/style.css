@@ -14,14 +14,14 @@
 }
 
 .main-header-center {
-  height: 2rem;
+  height: auto;
 }
 
 button.btn.search-button {
   position: absolute;
   top: 50%;
 
-  transform: translateY(-42%);
+  transform: translateY(-50%);
   z-index: 11;
   color: #0000005c;
 }

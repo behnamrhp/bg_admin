@@ -1,9 +1,12 @@
 import './style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { userTab } from '../../utils/configs/constants/global';
+import { usersListPropTypes } from '../../utils/configs/types/global';
+import { UsersList } from '../../components/UsersList';
 
-export const UserPresentation = () => {
+
+export const UserPresentation = ({usersListData, usersListIsLoading, usersListIsError} : usersListPropTypes) => {
     return (
         <>
     {/* header */}
@@ -22,46 +25,7 @@ export const UserPresentation = () => {
 								<div className="">
 									<div className="main-content-app main-content-contacts pt-0">
                                         {/* users list */}
-										<div className="main-content-left main-content-left-contacts">
-
-                                            <div className="main-header-center mt-2 mx-2 d-lg-block">
-                                                <input className="form-control" placeholder="هر چیزی را جستجو کنید ..." type="search" />
-                                                <button className="btn search-button">
-                                                    <FontAwesomeIcon icon={faSearch}/>
-                                                </button>
-                                            </div>
-
-											<div className="main-contacts-list" id="mainContactList">
-												<div className="main-contact-label">
-													آ
-												</div>
-
-                                                {/* user item */}
-												<div className="main-contact-item selected">
-													{/* <div className="main-img-user online">
-                                                        <img alt="آواتار" src="assets/img/faces/2.jpg"/>
-                                                    </div> */}
-                                                    <div className="avatar-min">
-														آ
-													</div>
-													<div className="main-contact-body">
-														<h6>ابیگل جانسون</h6><span className="phone">+ 1-234-567-890</span>
-													</div>
-													<a className="main-contact-star" href="#">
-														<i className="fe fe-star mr-1 text-warning"></i>
-														<i className="fe fe-edit-2 mr-1"></i>
-														<i className="fe fe-more-vertical"></i>
-													</a>
-												</div>
-                                                {/* /user item */}
-						
-												
-												<div className="main-contact-label">
-													د
-												</div>
-
-											</div>
-										</div>
+                                        { !usersListIsError && usersListData && !usersListData.error  && (<UsersList usersListData={usersListData} usersListIsLoading={usersListIsLoading} usersListIsError={usersListIsError} />)}
                                         {/* /users list */}
 
 									</div>

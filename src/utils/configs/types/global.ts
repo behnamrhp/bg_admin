@@ -1,4 +1,4 @@
-import { userFetchResult } from "./api"
+import { userFetchResult, Final_result, usersListFetchResult, staticTemplateResult } from './api';
 
 export type loginArg = {
     "email" : string,
@@ -39,4 +39,10 @@ export type postFormProps = {
     setModalOpen        ?: React.Dispatch<React.SetStateAction<boolean>>,
     isUpdate            ?: boolean,
     updateParams        ?: updatePostParams
+}
+
+export type usersListPropTypes = {
+    usersListData       : Final_result<usersListFetchResult>;
+    usersListIsLoading  : boolean;
+    usersListIsError    : boolean; 
 }

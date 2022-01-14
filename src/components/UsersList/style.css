@@ -1,0 +1,15 @@
+.remove-user-list {
+  transition: all 0.2s;
+}
+
+.remove-user-list:hover {
+  color: var(--bs-red) !important;
+}
+
+.main-contacts-list {
+  max-height: 730px;
+  overflow-y: auto;
+}
+.main-content-body-contacts {
+  box-shadow: 1px 5px 5px #dbdbdb !important;
+}

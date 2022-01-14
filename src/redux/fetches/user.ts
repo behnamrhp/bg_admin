@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Reducers, baseUrl, apiRoute } from "../../utils/configs/constants";
-import { userFetchResult, usersListFetchResult, apiTemplateType, Final_result, staticTemplateResult } from '../../utils/configs/types/api';
-import { createEntityAdapter } from '@reduxjs/toolkit';
+import { userFetchResult, usersListFetchResult, apiTemplateType, Final_result, staticTemplateResult, booleanResult } from '../../utils/configs/types/api';
+import { createEntityAdapter, EntityState } from '@reduxjs/toolkit';
 
-
+const userTag:string = 'Users';
 const userAdaptor = createEntityAdapter<usersListFetchResult>();
 
 export const userApi = createApi({
@@ -12,12 +12,21 @@ export const userApi = createApi({
         baseUrl : baseUrl + '/user'
         
     }),
-    tagTypes : ['user'],
+    tagTypes : [userTag],
     endpoints   : builder => ({
-        getUser  : builder.query<Final_result<usersListFetchResult> | staticTemplateResult, string >({
+        getUser  : builder.query<Final_result<usersListFetchResult>, string >({
             query : (token) => `${apiRoute.get}?token=${token}`,
+            providesTags : (result: Final_result<usersListFetchResult>, error, args ) => {
+                if(!result || !result.data) return [{type: userTag, id : 'PARTIAL-LIST'}];
+
+                const data = result.data.ids;
+                return [
+                    ...data.map( id => ({type : userTag, id : +id})),
+                    {type : userTag, id : 'PARTIAL-LIST'}
+                ];
+
+            },
             transformResponse: (result: apiTemplateType<usersListFetchResult>) => {
-               if(!result.result) return result;
 
                const data = result.result as usersListFetchResult[];
                 const key_to_compare = 'firstname';
@@ -50,8 +59,30 @@ export const userApi = createApi({
                
                return {data: final , error : result.error}
             }
+        }),
+        delteUser : builder.mutation<booleanResult, {id : string, token : string}>({
+            query(args){
+                const formData = new FormData();
+                formData.append('token', args.token);
+                formData.append('id', args.id);
+
+                return {
+                    url        : apiRoute.delete,
+                    method     : 'POST',
+                    body       : formData
+                }
+
+            },
+            invalidatesTags : (result : booleanResult, error, {id}) => {
+                if(!result.result) return [];
+                return [
+                    {type : userTag, id},
+                    {type : userTag, id : 'PARTIAL-LIST'}
+                ]
+            }
+
         })
     })
 });
 
-export const { useGetUserQuery } = userApi;
+export const { useGetUserQuery, useDelteUserMutation } = userApi;
