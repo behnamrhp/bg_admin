@@ -1,5 +1,6 @@
 export enum Reducers {
     user    = "user",
     slider  = "slider",
-    post    = "post"
+    post    = "post",
+    users   = 'users'
 }

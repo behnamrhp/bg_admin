@@ -280,3 +280,7 @@ html {
 body.swal2-height-auto.swal2-shown {
   height: 100% !important;
 }
+
+.alert {
+  z-index: 111;
+}

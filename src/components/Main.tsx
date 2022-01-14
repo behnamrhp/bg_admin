@@ -12,6 +12,7 @@ import { Login } from '../pages/login/index';
 import storage from 'redux-persist/lib/storage';
 import { useEffect } from 'react';
 import { Post } from '../pages/Post/index';
+import { Users } from '../pages/users/index';
 
 /**
  * @todo load first page on Home component
@@ -40,6 +41,7 @@ export const Main =  () => {
                                 <Route path="/home" element={<Home />} />
                                 <Route path="/slider" element={<Slider />} />
                                 <Route path="/post" element={<Post />} />
+                                <Route path="/user" element={<Users />} />
                             </Route>
                             <Route path="/login" element={<Login />} />
                             <Route path="*" element={<Navigate to="/home" />} />

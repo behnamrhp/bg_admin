@@ -1,0 +1,50 @@
+.delete-user {
+  width: auto;
+  max-width: 4rem;
+  font-size: 1rem;
+}
+
+.delete-user:hover {
+  background-color: var(--bs-danger) !important;
+}
+
+.nav-link-button {
+  background: unset;
+  border: none;
+}
+
+.main-header-center {
+  height: 2rem;
+}
+
+button.btn.search-button {
+  position: absolute;
+  top: 50%;
+
+  transform: translateY(-42%);
+  z-index: 11;
+  color: #0000005c;
+}
+
+.main-content-left .search-button {
+  left: -3px !important;
+}
+
+.avatar-min {
+  align-items: center;
+  background-color: #4d5875;
+  border-radius: 100%;
+  color: #fff;
+  display: flex;
+  font-size: 16px;
+  font-weight: 600;
+  height: 36px;
+  justify-content: center;
+  position: relative;
+  width: 36px;
+}
+
+.content-container {
+  overflow-x: hidden;
+  overflow-y: auto;
+}

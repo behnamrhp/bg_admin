@@ -1,3 +1,3 @@
-import { userApi, useGetUserMutation } from "./user";
+import { userApi  } from "./user";
 
-export { userApi, useGetUserMutation }
+export { userApi }

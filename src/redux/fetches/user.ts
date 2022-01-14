@@ -1,68 +1,57 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { BaseQueryFn } from "@reduxjs/toolkit/dist/query";
 import { Reducers, baseUrl, apiRoute } from "../../utils/configs/constants";
-import { userFetchResult } from '../../utils/configs/types/api';
-import { RootState } from '../store/store';
+import { userFetchResult, usersListFetchResult, apiTemplateType, Final_result, staticTemplateResult } from '../../utils/configs/types/api';
+import { createEntityAdapter } from '@reduxjs/toolkit';
 
-// const customFetchBaseQuery =
-//   (
-//     { baseUrl }: { baseUrl: string } = { baseUrl: '' }
-//   ): BaseQueryFn<
-//     {
-//       url: string
-//       method: 'POST' | 'GET' 
-//       data?: any
-//     },
-//     unknown,
-//     unknown
-//   > =>
-//   async ({ url, method, data }): Promise<any> => {
-//     try {
-//         const form = new FormData();
-//         for (let prop in data ){
-//             form.append(prop, data[prop]);
-//         }
-//       const _result = await fetch( baseUrl+ '/' + url ,{  method, body: form}).then(resp => {
-//         if(!resp.ok) throw new Error('your error is:' + resp.status)
-//         const res = resp.json()
-//         console.log(res);
-//         if(!res) throw new Error('error');
-//         return res;
-//       }).then(resp=> resp).catch(err => {
-//           throw err
-//       })
-     
-//       return { _result  }
 
-//     } catch (errMess) {
-//       return errMess;
-//     }
-//   }
-
+const userAdaptor = createEntityAdapter<usersListFetchResult>();
 
 export const userApi = createApi({
-    reducerPath : Reducers.user,
+    reducerPath : Reducers.users,
     baseQuery   : fetchBaseQuery({
-        baseUrl : baseUrl
+        baseUrl : baseUrl + '/user'
         
     }),
-    
-    tagTypes : ['wrong_login', 'currect'],
+    tagTypes : ['user'],
     endpoints   : builder => ({
-        getUser  : builder.mutation<userFetchResult, Partial<FormData> >({
-            query : (body) => ({
-                url : `${apiRoute.admin}`,
-                method : 'POST',
-                body: body
-                
-            }),
-            transformResponse: (response: any) => {
-                console.log('data is: ', response);
-               if(!response.result) return false
-               return response.result
+        getUser  : builder.query<Final_result<usersListFetchResult> | staticTemplateResult, string >({
+            query : (token) => `${apiRoute.get}?token=${token}`,
+            transformResponse: (result: apiTemplateType<usersListFetchResult>) => {
+               if(!result.result) return result;
+
+               const data = result.result as usersListFetchResult[];
+                const key_to_compare = 'firstname';
+
+                const collator = new Intl.Collator('fa');
+
+                //make array of firstname
+                const names = data.map(item => {
+                    return item[key_to_compare] + '_' + item.id
+                })
+
+                //sort by key
+                const sortedNames = names.sort(collator.compare);
+
+                //make new sorted array
+               const sorted_data =  sortedNames.map(item => {
+                    const id = item.split('_')[1];
+
+                    const found_user = data.find(user => {
+                       return +user.id === +id
+                    });
+
+                    return found_user
+                });
+
+                const final = userAdaptor.addMany(
+                                                    userAdaptor.getInitialState(),
+                                                    sorted_data    
+                                                )
+               
+               return {data: final , error : result.error}
             }
         })
     })
 });
 
-export const { useGetUserMutation } = userApi;
+export const { useGetUserQuery } = userApi;

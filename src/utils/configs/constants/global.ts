@@ -1,6 +1,6 @@
 export const check_env = !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
 
-export const baseUrl = check_env ? `http://192.168.1.10:8080` : `https://bonyangozar.com`;
+export const baseUrl = check_env ? `http://192.168.1.106:8080` : `https://bonyangozar.com`;
 
 export const limitContents = 12;
 
@@ -16,4 +16,12 @@ export enum pagesName {
     habitLogs      = "اطلاعات عادات",
     userScors      = "امتیازات",
     selfEvaluation = "خودارزشیابی",
+}
+
+export enum userTab {
+    skills          = 'توانمندی ها',
+    habits          = 'عادات',
+    habitLogs       = 'اطلاعات عادات',
+    userScores      = 'امتیازات',
+    selfEvaluation  = 'خودارزیابی'
 }

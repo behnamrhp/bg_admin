@@ -20,7 +20,7 @@ export type apiTemplatePaginatedType<T> = {
 
 export type Final_result<T> = {
     error : false | string
-    page  : page,
+    page  ?: page,
     data  : EntityState<T>
 }
 
@@ -64,3 +64,14 @@ export type postArgumentsAdd = {
     image       : File;
     token       : string;
 }
+
+export type usersListFetchResult = {
+                                        id : number;
+                                        mobile : string;
+                                        image : string;
+                                        firstname : string;
+                                        lastname : string;
+                                        sex : 0 | 1;
+                                        birthday : string;
+                                        score : number;    
+                                    }

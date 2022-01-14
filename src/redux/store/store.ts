@@ -4,11 +4,13 @@ import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, R
 import storage from 'redux-persist/lib/storage';
 import { sliderApi } from '../fetches/slider';
 import { postApi } from '../fetches/post';
+import { userApi } from '../fetches';
 
 const reducers = combineReducers({
     user   : userReducer,
     [ sliderApi.reducerPath ] : sliderApi.reducer,
-    [ postApi.reducerPath ]   : postApi.reducer
+    [ postApi.reducerPath ]   : postApi.reducer,
+    [ userApi.reducerPath ]   : userApi.reducer
 })
 
 //persist data
@@ -16,26 +18,20 @@ const persistConfigs = {
   key : 'bg_d',
   storage,
   whitelist : ['user'],
-  blacklist : ['slider', 'post']
+  blacklist : ['slider', 'post', 'users']
 }
 
 const persistedReducers = persistReducer(persistConfigs, reducers);
 
 export const store = configureStore({
-    // reducer : {
-    //     [ userApi.reducerPath ] : userApi.reducer
-    // },
     reducer    : persistedReducers,
     middleware : (getDefaultMiddleware) => {
         return getDefaultMiddleware({
           serializableCheck : {
             ignoredActions : [ FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
           }
-        }).concat(sliderApi.middleware).concat(postApi.middleware)
-    }        
-    // middleware : (getDefaultMiddleware) => {
-    //     return getDefaultMiddleware().concat(userApi.middleware)
-    // }        
+        }).concat(sliderApi.middleware).concat(postApi.middleware).concat(userApi.middleware)
+    }     
 });
 export const persistor = persistStore(store);
 export type AppDispatch = typeof store.dispatch;
