@@ -77,7 +77,7 @@ export const UserPresentation = ({usersListData, usersListIsLoading, usersListIs
 									</div>
                                     {/* /tabs */}
 									<div className="main-contact-info-body px-4 pb-3 ps">
-										{UserTabItemSelect(selTab, {selUser})}
+										{ !usersListIsError && usersListData && selUser && UserTabItemSelect(selTab, {selUser})}
 									</div>
 
 								</div>
