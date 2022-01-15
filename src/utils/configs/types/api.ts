@@ -75,3 +75,9 @@ export type usersListFetchResult = {
                                         birthday : string;
                                         score : number;    
                                     }
+export type resultFetchSkills = {
+                                    subject : string;
+                                    id      : number;
+                                    percent : number;
+                                    docount : number;
+                                }

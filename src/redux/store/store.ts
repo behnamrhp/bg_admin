@@ -5,12 +5,14 @@ import storage from 'redux-persist/lib/storage';
 import { sliderApi } from '../fetches/slider';
 import { postApi } from '../fetches/post';
 import { userApi } from '../fetches';
+import { skillsApi } from '../fetches/skills';
 
 const reducers = combineReducers({
     user   : userReducer,
     [ sliderApi.reducerPath ] : sliderApi.reducer,
     [ postApi.reducerPath ]   : postApi.reducer,
-    [ userApi.reducerPath ]   : userApi.reducer
+    [ userApi.reducerPath ]   : userApi.reducer,
+    [ skillsApi.reducerPath ] : skillsApi.reducer
 })
 
 //persist data
@@ -18,7 +20,7 @@ const persistConfigs = {
   key : 'bg_d',
   storage,
   whitelist : ['user'],
-  blacklist : ['slider', 'post', 'users']
+  blacklist : ['slider', 'post', 'users', 'skills']
 }
 
 const persistedReducers = persistReducer(persistConfigs, reducers);

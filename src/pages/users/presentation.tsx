@@ -4,9 +4,35 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { userTab } from '../../utils/configs/constants/global';
 import { usersListPropTypes } from '../../utils/configs/types/global';
 import { UsersList } from '../../components/UsersList';
+import { SelectedUser } from '../../components/selectedUser';
+import { Skills } from '../../components/UserTabs/Skills';
+import { Habits } from '../../components/UserTabs/Habits';
+import { HabitLogs } from '../../components/UserTabs/HabitLogs';
+import { SelfEvaluation } from '../../components/UserTabs/SelfEvaluation';
+import { Scores } from '../../components/UserTabs/Scores';
 
 
-export const UserPresentation = ({usersListData, usersListIsLoading, usersListIsError} : usersListPropTypes) => {
+
+const UserTabItemSelect = (tab : string, props : {selUser}) => {
+
+	const tab_map = new Map();
+	tab_map.set(userTab.skills, <Skills  {...props} />);
+	// tab_map.set(userTab.habits, <Habits  {...props} />);
+	// tab_map.set(userTab.habitLogs, <HabitLogs  {...props} />);
+	// tab_map.set(userTab.selfEvaluation, <SelfEvaluation  {...props} />);
+	// tab_map.set(userTab.userScores, <Scores  {...props} />);
+
+	return tab_map.get(tab)
+}
+
+export const UserPresentation = ({usersListData, usersListIsLoading, usersListIsError, selUser, setSelUser, setSelTab, selTab} : usersListPropTypes) => {
+
+
+	const onClickTabHandler = (e) => {
+		const tab = e.target as HTMLElement;
+		setSelTab(tab.dataset.toggle);
+	}
+
     return (
         <>
     {/* header */}
@@ -25,7 +51,7 @@ export const UserPresentation = ({usersListData, usersListIsLoading, usersListIs
 								<div className="">
 									<div className="main-content-app main-content-contacts pt-0">
                                         {/* users list */}
-                                        { !usersListIsError && usersListData && !usersListData.error  && (<UsersList usersListData={usersListData} usersListIsLoading={usersListIsLoading} usersListIsError={usersListIsError} />)}
+                                        { !usersListIsError && usersListData && !usersListData.error && selUser  && (<UsersList usersListData={usersListData} usersListIsLoading={usersListIsLoading} usersListIsError={usersListIsError} setSelUser={setSelUser} selUser={selUser} selTab={selTab} setSelTab={setSelTab}/>)}
                                         {/* /users list */}
 
 									</div>
@@ -37,39 +63,23 @@ export const UserPresentation = ({usersListData, usersListIsLoading, usersListIs
 								<a className="main-header-arrow" href="#" id="ChatBodyHide"><i className="icon ion-md-arrow-back"></i></a>
 								<div className="main-content-body main-content-body-contacts card custom-card">
 
-									<div className="main-contact-info-header pt-3">
-										<div className="media">
-											{/* <div className="main-img-user">
-												<img alt="آواتار" src="assets/img/faces/6.jpg" />
-											</div> */}
-                                            <div className="avatar bg-primary avatar-xl brround avatar-custom">
-												آ
-											</div>
-											<div className="media-body">
-												<h5>پتی کروزر</h5>
-												<p>طراح وب</p>
-											
-											</div>
-										</div>
-										<div className="main-contact-action btn-list pt-3 pr-3">
-											<button className="btn delete-user ripple btn-secondary text-white btn-icon" data-placement="top" data-toggle="tooltip" title="حذف کاربر">
-                                                <FontAwesomeIcon icon={faTrash} />
-                                            </button>
-										</div>
-									</div>
-
+									{ !usersListIsError && usersListData && selUser && (<SelectedUser selUser={selUser}/> )}									
+								
                                     {/* tabs */}
 									<div className="main-contact-info-body p-4">
                                             <nav className="nav main-nav-line main-nav-line-chat  pl-3">
-												<button className="nav-link-button nav-link active" data-toggle="tab" >{userTab.skills}</button>
-												<button className="nav-link-button nav-link" data-toggle="tab" >{userTab.habits}</button>
-												<button className="nav-link-button nav-link" data-toggle="tab" >{userTab.habitLogs}</button>
-												<button className="nav-link-button nav-link" data-toggle="tab" >{userTab.userScores}</button>
-												<button className="nav-link-button nav-link" data-toggle="tab" >{userTab.selfEvaluation}</button>
+												<button className={selTab === userTab.skills ? "nav-link-button nav-link active" : "nav-link-button nav-link"} data-toggle={userTab.skills} onClick={(e) => onClickTabHandler(e)}>{userTab.skills}</button>
+												<button className={selTab === userTab.habits ? "nav-link-button nav-link active" : "nav-link-button nav-link"} data-toggle={userTab.habits} onClick={(e) => onClickTabHandler(e)}>{userTab.habits}</button>
+												<button className={selTab === userTab.habitLogs ? "nav-link-button nav-link active" : "nav-link-button nav-link"} data-toggle={userTab.habitLogs} onClick={(e) => onClickTabHandler(e)}>{userTab.habitLogs}</button>
+												<button className={selTab === userTab.userScores ? "nav-link-button nav-link active" : "nav-link-button nav-link"} data-toggle={userTab.userScores} onClick={(e) => onClickTabHandler(e)}>{userTab.userScores}</button>
+												<button className={selTab === userTab.selfEvaluation ? "nav-link-button nav-link active" : "nav-link-button nav-link"} data-toggle={userTab.selfEvaluation} onClick={(e) => onClickTabHandler(e)}>{userTab.selfEvaluation}</button>
 											</nav>
 									</div>
                                     {/* /tabs */}
-                                    
+									<div className="main-contact-info-body px-4 pb-3 ps">
+										{UserTabItemSelect(selTab, {selUser})}
+									</div>
+
 								</div>
 							</div>
 						</div>

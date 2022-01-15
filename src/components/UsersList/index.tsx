@@ -12,7 +12,7 @@ import { staticMsgs, customSwal } from '../../utils/helpers/viewHelpers';
 import { Alert } from '../Alert';
 
 
-export const UsersList = ({usersListData, usersListIsLoading, usersListIsError} : usersListPropTypes) => {
+export const UsersList = ({usersListData, usersListIsLoading, usersListIsError, selUser, setSelUser} : usersListPropTypes) => {
     const [ usersList, setUsersList ] = useState(usersListData.data);
     const searchRef = useRef<HTMLInputElement>();
     const admin = useAppSelector(state => state.user.data) as userFetchResult;
@@ -55,7 +55,7 @@ export const UsersList = ({usersListData, usersListIsLoading, usersListIsError} 
                     </div>)}
                     {/* /for categorize users list by first letter of names */}
     
-                    <div className={i === 0 ? "main-contact-item selected" : "main-contact-item "}>
+                    <div className={+user.id === +selUser.id ? "main-contact-item selected" : "main-contact-item "} onClick={() => setSelUser(user)}>
                         { (user.image && user.image !== 'null' && user.image !== 'undefined') ?
                             (
                                 <div className="main-img-user online">

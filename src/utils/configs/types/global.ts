@@ -45,4 +45,8 @@ export type usersListPropTypes = {
     usersListData       : Final_result<usersListFetchResult>;
     usersListIsLoading  : boolean;
     usersListIsError    : boolean; 
+    selUser             : usersListFetchResult;
+    setSelUser          : React.Dispatch<React.SetStateAction<usersListFetchResult>>;
+    selTab              : string;
+    setSelTab           : React.Dispatch<React.SetStateAction<string>>;
 }
