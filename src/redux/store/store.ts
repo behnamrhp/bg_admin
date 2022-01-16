@@ -6,13 +6,15 @@ import { sliderApi } from '../fetches/slider';
 import { postApi } from '../fetches/post';
 import { userApi } from '../fetches';
 import { skillsApi } from '../fetches/skills';
+import { habitsApi } from '../fetches/habits';
 
 const reducers = combineReducers({
     user   : userReducer,
     [ sliderApi.reducerPath ] : sliderApi.reducer,
     [ postApi.reducerPath ]   : postApi.reducer,
     [ userApi.reducerPath ]   : userApi.reducer,
-    [ skillsApi.reducerPath ] : skillsApi.reducer
+    [ skillsApi.reducerPath ] : skillsApi.reducer,
+    [ habitsApi.reducerPath ] : habitsApi.reducer
 })
 
 //persist data
@@ -20,7 +22,7 @@ const persistConfigs = {
   key : 'bg_d',
   storage,
   whitelist : ['user'],
-  blacklist : ['slider', 'post', 'users', 'skills']
+  blacklist : ['slider', 'post', 'users', 'skills', 'habits']
 }
 
 const persistedReducers = persistReducer(persistConfigs, reducers);

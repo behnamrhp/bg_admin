@@ -11,14 +11,13 @@ export const SelectedUser = ({selUser}:{selUser : usersListFetchResult}) => {
                                                         <img alt="user avatar" src={selUser.image} />
                                                     </div>)
                                                 :
-
                                                     (
                                                     <>
                                                     <div className="avatar bg-primary avatar-xl brround avatar-custom">
                                                         {selUser.firstname[0]}
                                                     </div>
                                                     <div className="media-body">
-                                                        <h5>{selUser.firstname + ' ' + selUser.lastname}</h5>
+                                                        <h5>{selUser.firstname + ' ' + (selUser.lastname ? selUser.lastname : '')}</h5>
                                                         <p>{selUser.mobile}</p>
                                                     
                                                     </div>

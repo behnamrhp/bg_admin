@@ -306,3 +306,7 @@ body.swal2-height-auto.swal2-shown {
 ::-webkit-scrollbar-thumb:window-inactive {
   background: none;
 }
+
+.t-center {
+  text-align: center !important;
+}

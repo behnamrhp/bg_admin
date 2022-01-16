@@ -81,3 +81,20 @@ export type resultFetchSkills = {
                                     percent : number;
                                     docount : number;
                                 }
+
+export interface resultFetchHabits {
+    id              : number;
+    subject         : string;
+    details         : string;
+    icon            : string;
+    color           : string;
+    importance      : number;
+    difficulty      : number;
+    fear            : number;
+    score           : number;
+    time            : string;
+    repeated_period : number;
+    days_of_week    : number;
+    days_of_month   : number;
+    create_data     : string;
+}                                

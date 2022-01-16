@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Reducers } from '../../utils/configs/constants/reducers';
 import { baseUrl, limitTableData } from '../../utils/configs/constants/global';
-import { page, apiTemplateType, apiTemplatePaginatedType, Final_result, resultFetchSkills } from '../../utils/configs/types/api';
+import { page, apiTemplatePaginatedType, Final_result, resultFetchSkills } from '../../utils/configs/types/api';
 import { createEntityAdapter } from '@reduxjs/toolkit';
 
 const skillsTag:string       = 'SkillTag';

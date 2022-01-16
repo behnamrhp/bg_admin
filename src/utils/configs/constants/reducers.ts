@@ -3,5 +3,6 @@ export enum Reducers {
     slider  = "slider",
     post    = "post",
     users   = 'users',
-    skills  = 'skills'
+    skills  = 'skills',
+    habits  = 'habits'
 }

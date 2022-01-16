@@ -45,9 +45,10 @@ export const UsersList = ({usersListData, usersListIsLoading, usersListIsError, 
         
         return users.ids.map((id, i) => {
             const user = users.entities[id];
-            if(!user) return null;
+            if(!user || !user.id) return null;
+    
             return (
-                <div key={`usersList_${user.id}`}>
+                <div key={`usersList__${user.id}`}>
     
                     {/* for categorize users list by first letter of names */}
                     {( (alphabetCat && alphabetCat !== user.firstname[0]) || !alphabetCat) && (<div className="main-contact-label" >
@@ -70,7 +71,7 @@ export const UsersList = ({usersListData, usersListIsLoading, usersListIsError, 
                         }
                         
                         <div className="main-contact-body">
-                            <h6>{user.firstname + ' ' + user.lastname}</h6><span className="phone">{user.mobile}</span>
+                            <h6>{(user.firstname ? user.firstname : '') + ' ' + (user.lastname ? user.lastname : '')}</h6><span className="phone">{user.mobile}</span>
                         </div>
                         <button className="no-border-button main-contact-star remove-user-list" onClick={() => alertUserDelete(user.id)}>
                            <FontAwesomeIcon icon={faTrash}  />
@@ -86,7 +87,6 @@ export const UsersList = ({usersListData, usersListIsLoading, usersListIsError, 
     //change search input handler 
     const changeSearchHandler = () => {
         const value = searchRef.current.value;
-
         if( !value || typeof value === null )return  setUsersList(usersListData.data);
 
         const found_users = {
@@ -95,7 +95,7 @@ export const UsersList = ({usersListData, usersListIsLoading, usersListIsError, 
         }
         usersListData.data.ids.forEach(id => {
             const user = usersListData.data.entities[id];
-            if(user.firstname.includes(value) || user.lastname.includes(value)){
+            if(user.firstname?.includes(value) || user.lastname?.includes(value)){
                 found_users.ids.push(id)
                 found_users.entities[id] =  {...user}
                 return true

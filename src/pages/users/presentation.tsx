@@ -17,7 +17,7 @@ const UserTabItemSelect = (tab : string, props : {selUser}) => {
 
 	const tab_map = new Map();
 	tab_map.set(userTab.skills, <Skills  {...props} />);
-	// tab_map.set(userTab.habits, <Habits  {...props} />);
+	tab_map.set(userTab.habits, <Habits  {...props} />);
 	// tab_map.set(userTab.habitLogs, <HabitLogs  {...props} />);
 	// tab_map.set(userTab.selfEvaluation, <SelfEvaluation  {...props} />);
 	// tab_map.set(userTab.userScores, <Scores  {...props} />);
