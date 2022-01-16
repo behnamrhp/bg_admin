@@ -107,16 +107,15 @@ export const UsersList = ({usersListData, usersListIsLoading, usersListIsError, 
     }
 
     return (
-        <div className="main-content-left main-content-left-contacts">
+        
+        <>
                 {(deleteUserResult.isError || (deleteUserResult.data?.error)) &&  (<Alert type='danger' text={staticMsgs().errorServer} isFullWidth={true} isVisible={!!deleteUserResult.data?.error}/>) }
-
                 <div className="main-header-center mt-2 mx-2 d-lg-block">
-                    <input onChange={changeSearchHandler} ref={searchRef} className="form-control" placeholder="کاربر مورد نظر را جستحو کنید ..." type="search" />
-                    <button className="btn search-button">
-                        <FontAwesomeIcon icon={faSearch}/>
-                    </button>
-                </div>
-
+					<input onChange={changeSearchHandler} ref={searchRef} className="form-control" placeholder="کاربر مورد نظر را جستحو کنید ..." type="search" />
+					<button className="btn search-button">
+						<FontAwesomeIcon icon={faSearch}/>
+					</button>
+				</div>
 			<div className="main-contacts-list" id="mainContactList">
 				
                     {/* user item */}
@@ -125,6 +124,6 @@ export const UsersList = ({usersListData, usersListIsLoading, usersListIsError, 
                     {/* /user item */}
 
 			</div>
-		</div>
+		</>
     )
 }

@@ -48,3 +48,7 @@ button.btn.search-button {
   overflow-x: hidden;
   overflow-y: auto;
 }
+
+.main-content-left{
+  min-height: 50rem;
+}

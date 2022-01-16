@@ -83,18 +83,43 @@ export type resultFetchSkills = {
                                 }
 
 export interface resultFetchHabits {
-    id              : number;
-    subject         : string;
-    details         : string;
-    icon            : string;
-    color           : string;
-    importance      : number;
-    difficulty      : number;
-    fear            : number;
-    score           : number;
-    time            : string;
-    repeated_period : number;
-    days_of_week    : number;
-    days_of_month   : number;
-    create_data     : string;
+    id                  : number;
+    subject             : string;
+    details             : string;
+    importance          : number;
+    difficulty          : number;
+    fear                : number;
+    score               : number;
+    time                : string;
+    repeat_period       : number;
+    days_of_week        : number;
+    days_of_month       : number;
+    skills              : {
+        subject             : string;
+        percent             : number;
+        failed_count        : number;
+        success_count       : number;
+    }
+    
 }                                
+
+export interface resultFetchHabitLogs {
+    id      : number;
+    subject : string;
+    date    : string;
+    time    : string;
+    status  : number;
+}
+
+export interface resultFetchUserScores {
+    id      : number;
+    date    : string;
+    score   : number;
+}
+
+export interface resultFetchSelfEvaluation {
+    id      : number;
+    title   : string;
+    section : number;
+    score   : number;
+}

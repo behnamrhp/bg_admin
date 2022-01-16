@@ -1,6 +1,4 @@
 import './style.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { userTab } from '../../utils/configs/constants/global';
 import { usersListPropTypes } from '../../utils/configs/types/global';
 import { UsersList } from '../../components/UsersList';
@@ -10,6 +8,7 @@ import { Habits } from '../../components/UserTabs/Habits';
 import { HabitLogs } from '../../components/UserTabs/HabitLogs';
 import { SelfEvaluation } from '../../components/UserTabs/SelfEvaluation';
 import { Scores } from '../../components/UserTabs/Scores';
+import { Loading } from '../../components/Loading';
 
 
 
@@ -18,9 +17,9 @@ const UserTabItemSelect = (tab : string, props : {selUser}) => {
 	const tab_map = new Map();
 	tab_map.set(userTab.skills, <Skills  {...props} />);
 	tab_map.set(userTab.habits, <Habits  {...props} />);
-	// tab_map.set(userTab.habitLogs, <HabitLogs  {...props} />);
-	// tab_map.set(userTab.selfEvaluation, <SelfEvaluation  {...props} />);
-	// tab_map.set(userTab.userScores, <Scores  {...props} />);
+	tab_map.set(userTab.habitLogs, <HabitLogs  {...props} />);
+	tab_map.set(userTab.userScores, <Scores  {...props} />);
+	tab_map.set(userTab.selfEvaluation, <SelfEvaluation  {...props} />);
 
 	return tab_map.get(tab)
 }
@@ -51,9 +50,12 @@ export const UserPresentation = ({usersListData, usersListIsLoading, usersListIs
 								<div className="">
 									<div className="main-content-app main-content-contacts pt-0">
                                         {/* users list */}
+										<div className="main-content-left main-content-left-contacts">
+
+										{ usersListIsLoading && <Loading isFullWidth={false} isVisible={usersListIsLoading}/>}
                                         { !usersListIsError && usersListData && !usersListData.error && selUser  && (<UsersList usersListData={usersListData} usersListIsLoading={usersListIsLoading} usersListIsError={usersListIsError} setSelUser={setSelUser} selUser={selUser} selTab={selTab} setSelTab={setSelTab}/>)}
                                         {/* /users list */}
-
+										</div>
 									</div>
 								</div>
 							</div>
@@ -62,6 +64,7 @@ export const UserPresentation = ({usersListData, usersListIsLoading, usersListIs
 							<div className="">
 								<a className="main-header-arrow" href="#" id="ChatBodyHide"><i className="icon ion-md-arrow-back"></i></a>
 								<div className="main-content-body main-content-body-contacts card custom-card">
+									{ usersListIsLoading && <Loading isFullWidth={false} isVisible={usersListIsLoading}/>}
 
 									{ !usersListIsError && usersListData && selUser && (<SelectedUser selUser={selUser}/> )}									
 								

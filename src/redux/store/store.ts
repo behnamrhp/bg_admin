@@ -7,14 +7,21 @@ import { postApi } from '../fetches/post';
 import { userApi } from '../fetches';
 import { skillsApi } from '../fetches/skills';
 import { habitsApi } from '../fetches/habits';
+import { habitLogsApi } from '../fetches/habitLogs';
+import { userScoresApi } from '../fetches/userScores';
+import { selfEvaluationApi } from '../fetches/selfEvaluation';
 
 const reducers = combineReducers({
-    user   : userReducer,
-    [ sliderApi.reducerPath ] : sliderApi.reducer,
-    [ postApi.reducerPath ]   : postApi.reducer,
-    [ userApi.reducerPath ]   : userApi.reducer,
-    [ skillsApi.reducerPath ] : skillsApi.reducer,
-    [ habitsApi.reducerPath ] : habitsApi.reducer
+    user                              : userReducer,
+    [ sliderApi.reducerPath ]         : sliderApi.reducer,
+    [ postApi.reducerPath ]           : postApi.reducer,
+    [ userApi.reducerPath ]           : userApi.reducer,
+    [ skillsApi.reducerPath ]         : skillsApi.reducer,
+    [ habitsApi.reducerPath ]         : habitsApi.reducer,
+    [ habitLogsApi.reducerPath ]      : habitLogsApi.reducer,
+    [ userScoresApi.reducerPath ]     : userScoresApi.reducer,
+    [ selfEvaluationApi.reducerPath ] : selfEvaluationApi.reducer,
+
 })
 
 //persist data
@@ -22,7 +29,7 @@ const persistConfigs = {
   key : 'bg_d',
   storage,
   whitelist : ['user'],
-  blacklist : ['slider', 'post', 'users', 'skills', 'habits']
+  blacklist : ['slider', 'post', 'users', 'skills', 'habits', 'habitLogs', 'userScores', 'selfEvaluationScores']
 }
 
 const persistedReducers = persistReducer(persistConfigs, reducers);

@@ -32,9 +32,6 @@ export const Skills = ({selUser}: {selUser : usersListFetchResult}) => {
 		})
 	}
 
-    useEffect(()=>{
-        console.log(data);
-    },[data])
     return (
         <div>
             <div className="card-body">
@@ -60,10 +57,10 @@ export const Skills = ({selUser}: {selUser : usersListFetchResult}) => {
 								</div>
                                 {/* pagination section */}
                                 <div className="row">
+									{!isError && data && data.page && +data.page.total_page !== 1 && +data.page.total_page !== 0 && (<Pagination page={data.page} setPage={setPage}/>)}
                                     
                                 </div>
                                 {/* /pagination section */}
-								{!isError && data && data.page && +data.page.total_page !== 1 && +data.page.total_page !== 0 && (<Pagination page={data.page} setPage={setPage}/>)}
                                 
         </div>
     )
