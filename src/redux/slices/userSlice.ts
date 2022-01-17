@@ -30,7 +30,6 @@ export const userSlice = createSlice({
                     },
     reducers      : {
         isDarkModeReducer : (state , action: PayloadAction<"1" | "0">) => {
-            console.log(action);
             state.data.is_dark_theme = action.payload
         }
     },

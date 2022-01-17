@@ -49,6 +49,26 @@ button.btn.search-button {
   overflow-y: auto;
 }
 
-.main-content-left{
+.main-content-left {
   min-height: 50rem;
+}
+
+.selfQuestionTabContainer {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.selfQuestionTabContainer .nav-link {
+  white-space: nowrap !important;
+}
+.selfQuestionTabContainer .nav-link.active {
+  white-space: nowrap !important;
+}
+
+.selfQuestionTabContainer .nav-link.active {
+  white-space: nowrap !important;
+}
+
+.selfQuestionTabContainer .nav-link.active:before {
+  top: 26px !important;
 }

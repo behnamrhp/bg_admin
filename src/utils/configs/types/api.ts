@@ -24,6 +24,20 @@ export type Final_result<T> = {
     data  : EntityState<T>
 }
 
+export interface FinalSelfEvaluationQuestionTemp<T>  {
+    error : false | string;
+    data  : EntityState<T>;
+    results : {
+        1: number;
+        2: number;
+        3: number;
+        4: number;
+        5: number;
+        7: number;
+        8: number;
+    }
+}
+
 export type booleanResult = {
     result : boolean,
     error : string | false

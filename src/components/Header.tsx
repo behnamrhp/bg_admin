@@ -4,9 +4,8 @@ import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { toggleSidebarButton } from '../utils/helpers/viewHelpers';
 import { motion } from 'framer-motion';
 import { headerVariants } from '../utils/configs/constants/animateVariants';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { userFetchResult, booleanResult } from '../utils/configs/types/api';
 import { fetchTemp } from './../utils/helpers/index';
 import { isDarkModeReducer } from './../redux/slices/userSlice';
 
@@ -17,19 +16,18 @@ export const Header = () => {
 
     const isDarkModeHandler = async () => {
         setIsDarkMode((isDarkMode == "1") ? "0" : "1");
-        console.log(isDarkMode);
-        const result = await fetchTemp<{token : string; isDark:"1" | "0"}, true>('admin/is-dark','POST',{token:user.token, isDark: isDarkMode})
-        if(!result.error) Dispatch(isDarkModeReducer((isDarkMode == "1") ? "0" : "1"));
-        console.log(isDarkMode);
-
     }
 
 
 
     useEffect(() => {
+        
+        Dispatch(isDarkModeReducer(isDarkMode));
+        fetchTemp<{token : string; isDark:"1" | "0"}, true>('admin/is-dark','POST',{token:user.token, isDark: isDarkMode})
+
         if(isDarkMode == "1") document.body.classList.add('dark-theme');
         else document.body.classList.remove('dark-theme');
-    }, [user.is_dark_theme])
+    }, [isDarkMode])
     
     return (
     <motion.div className="main-header sticky side-header nav nav-item"
@@ -58,8 +56,9 @@ export const Header = () => {
                 <div className="ps-2">
                     <input type="checkbox" className="checkbox" checked={(isDarkMode == "1") ? true : false} id="checkbox" onChange={isDarkModeHandler}/>
                     <label htmlFor="checkbox" className="label pointer">
-                        <FontAwesomeIcon icon={faMoon} />
                         <FontAwesomeIcon icon={faSun}  />
+
+                        <FontAwesomeIcon icon={faMoon} />
                         <div className='ball'></div>
                     </label>    
                 </div>
