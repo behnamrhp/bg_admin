@@ -14,7 +14,6 @@ export const fetchTemp =async <AT extends {[key: string] : any}, RT >(url: strin
         method,
         data : form
     }).then((response: AxiosResponse<apiTemplateType<RT>>) => {
-        console.log(response);
         const result = response.data;
         if(!result || result.error) throw new Error(result.error as string);
 

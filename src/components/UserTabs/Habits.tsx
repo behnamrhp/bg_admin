@@ -23,7 +23,7 @@ export const Habits = ({selUser}: {selUser : usersListFetchResult}) => {
 			return (
 			<tr key={'skill_' + habit.id}>
 				<td>{habit.subject}</td>
-				<td>{habit.details}%</td>
+				<td>{habit.details}</td>
 				<td>{habit.importance}</td>
 				<td>{habit.difficulty}</td>
 				<td>{habit.fear}</td>

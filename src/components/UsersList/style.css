@@ -13,3 +13,7 @@
 .main-content-body-contacts {
   box-shadow: 1px 5px 5px #dbdbdb !important;
 }
+
+.dark-theme .main-content-body-contacts {
+  box-shadow: 0 0 10px rgba(28, 39, 60 , .1) !important;
+}

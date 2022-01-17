@@ -51,7 +51,7 @@ export const Post = () => {
             const image = baseUrl + '/images/posts/' + post.image;
             return (
             <div className="col-xl-4 col-lg-4 mt-4" key={'post_' + post.id} data-id={post.id}>
-                <div className="post-img-thumbnail  mb-3">
+                <div className="card post-img-thumbnail  mb-3">
                     
                         <img src={image} alt="thumb1" className="thumbimg  wd-100p" />
                     

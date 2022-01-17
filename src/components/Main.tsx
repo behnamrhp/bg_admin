@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { PrivateRoute } from "./PrivateRoute";
 import { AnimatePresence} from 'framer-motion';
@@ -13,12 +13,12 @@ import storage from 'redux-persist/lib/storage';
 import { useEffect } from 'react';
 import { Post } from '../pages/Post/index';
 import { Users } from '../pages/users/index';
+import { userFetchResult } from "../utils/configs/types/api";
 
 /**
  * @todo load first page on Home component
  */
 export const Main =  () => {
-
 // useEffect(() => {
 //     storage.removeItem("persist:bg_d");
 
@@ -27,9 +27,16 @@ export const Main =  () => {
 // },[]);
 
     const location = useLocation();
-    const user = useAppSelector(state => state.user.data);
+    const user = useAppSelector(state => state.user.data) as userFetchResult;
     const checkEmptyUser = useCheckNotEmptyObject(user);
    
+    //set dark mode on start
+    useEffect(() => {
+        // console.log(user.is_dark_theme);
+        // if(checkEmptyUser && user.is_dark_theme == "1") document.body.classList.add('dark-theme');
+        // else document.body.classList.remove('dark-theme');
+         
+    },[]);
 
     return(
         <div className="App">

@@ -35,12 +35,12 @@ export type  staticTemplateResult = {
 };
 
 export type userFetchResult = { 
-                                   id           : number;
-                                   email        : string;
-                                   firstname    : string;
-                                   lastname     : string;
-                                   is_dark_them : boolean;
-                                   token        : string;
+                                   id               : number;
+                                   email            : string;
+                                   firstname        : string;
+                                   lastname         : string;
+                                   is_dark_theme    : "1" | "0";
+                                   token            : string;
                                }
 
 export type sliderFetchResult = {

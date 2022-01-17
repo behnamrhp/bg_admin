@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { userFetchResult } from '../../utils/configs/types/api';
 import { loginArg } from "../../utils/configs/types/global";
 import { RootState, AppDispatch } from '../store/store';
@@ -24,11 +24,16 @@ loginArg,
 )
 export const userSlice = createSlice({
     name          : 'user',
-    initialState  : { data : {} as userFetchResult | {},
+    initialState  : { data : {} as userFetchResult,
                       error :  false as (boolean | string),
                       isLoading : false
                     },
-    reducers      : {},
+    reducers      : {
+        isDarkModeReducer : (state , action: PayloadAction<"1" | "0">) => {
+            console.log(action);
+            state.data.is_dark_theme = action.payload
+        }
+    },
     extraReducers : builder => {
         builder
         .addCase(loginThunk.fulfilled, (state , { payload }) => {
@@ -39,7 +44,7 @@ export const userSlice = createSlice({
         .addCase(loginThunk.rejected, (state, { payload })=> {
             state.isLoading = false;
             state.error     = payload!.error || false;
-            state.data      = {};
+            
         })
         .addCase(loginThunk.pending, (state) => {
             state.isLoading = true;
@@ -48,5 +53,5 @@ export const userSlice = createSlice({
     } 
     
 });
-
 export default userSlice.reducer;
+export const { isDarkModeReducer } = userSlice.actions
