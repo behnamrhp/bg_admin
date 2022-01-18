@@ -147,6 +147,12 @@ html {
   }
 }
 
+@media screen and (max-width: 480px) {
+  .main-content-container-custom {
+    margin-top: 4.3rem !important;
+  }
+}
+
 .content-container {
   height: calc(100% - var(--title-content-height) - 9rem);
 }
@@ -355,4 +361,12 @@ body.swal2-height-auto.swal2-shown {
 
 .t-bold {
   font-weight: bold;
+}
+
+.sidenav-toggled .mobile_toggle_sidebar_button {
+  position: absolute;
+  right: 240px;
+}
+.main-content .content-container {
+  overflow: visible;
 }

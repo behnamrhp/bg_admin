@@ -34,7 +34,7 @@ const sliderItems = (sliders: EntityState<sliderFetchResult>, deleteSliderDispat
     return sliders.ids.map(id => {
         const item = sliders.entities[id];
         return (
-            <figure  className="slider-item col-6 col-md-3 mt-2" key={ 'slider_' + item.id } data-id={item.id}>
+            <figure  className="slider-item col-12 col-sm-6 col-md-4 col-lg-3 mt-2" key={ 'slider_' + item.id } data-id={item.id}>
                 <img src={baseUrl + '/images/sliders/' + item.image} className='img-thumbnail' alt="thumbnail" />
                 <figcaption  className="removeIconContainer pos-absolute pd-25 bg-black-5 text-danger pointer" onClick={(e) => deleteSlider(e, deleteSliderDispatch)}>
                     <FontAwesomeIcon icon={faTimes} />

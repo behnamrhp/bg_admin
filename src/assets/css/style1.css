@@ -8839,6 +8839,7 @@ textarea.parsley-success:focus {
   right: 0;
   top: 35px;
   width: auto;
+  height: 2px !important;
 }
 @media (min-width: 992px) {
   .main-nav-line-chat {
@@ -9634,9 +9635,7 @@ textarea.parsley-success:focus {
 .main-contact-star.active {
   color: #fbbc0b;
 }
-.main-content-body-contacts {
-  display: none;
-}
+
 @media (min-width: 768px) {
   .main-content-body-contacts {
     display: block;

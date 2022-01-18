@@ -23,6 +23,7 @@ loginArg,
         return result.result;
     }
 )
+
 export const userSlice = createSlice({
     name          : 'user',
     initialState  : { data : {} as userFetchResult | {},

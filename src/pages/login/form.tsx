@@ -16,9 +16,6 @@ import { required, validEmail, minLength } from "../../utils/helpers/viewHelpers
 
 
 
-/**
- * @todo add error handle messge
- */
 export const LoginForm = () => {
     const Dispatch                          = useAppDispatch();
     let {data, error, isLoading}            = useAppSelector(state => state.user);
@@ -38,9 +35,9 @@ export const LoginForm = () => {
     useEffect(() => {
         
         //to reEnable button after not logined
-        if(!checkNotEmptyUser) setDisableButton(false)
+        if(!checkNotEmptyUser || !isLoading) setDisableButton(false)
         
-    }, [data])
+    }, [data, isLoading])
 
     
 

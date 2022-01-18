@@ -139,7 +139,7 @@ import { Loading } from '../Loading';
                 <DatePicker 
                 calendar={persian}
                 locale={persian_fa}
-                value={(isUpdate)? updateParams.dateTime : date}
+                value={(isUpdate) ? updateParams.dateTime : date}
                 onChange={({day, year, month}: DateObject) =>{
                      setDate(`${year}/${month.number}/${day}`)
                      }}

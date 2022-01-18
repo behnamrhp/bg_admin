@@ -72,3 +72,12 @@ button.btn.search-button {
 .selfQuestionTabContainer .nav-link.active:before {
   top: 26px !important;
 }
+
+.main-nav-line {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.main-nav-line-chat .nav-link {
+  white-space: nowrap;
+}

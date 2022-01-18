@@ -50,7 +50,7 @@ export const Post = () => {
             const post  = data.data.entities[id];
             const image = baseUrl + '/images/posts/' + post.image;
             return (
-            <div className="col-xl-4 col-lg-4 mt-4" key={'post_' + post.id} data-id={post.id}>
+            <div className="col-12 col-sm-6 col-lg-4 col-xl-4  mt-4" key={'post_' + post.id} data-id={post.id}>
                 <div className="card post-img-thumbnail  mb-3">
                     
                         <img src={image} alt="thumb1" className="thumbimg  wd-100p" />

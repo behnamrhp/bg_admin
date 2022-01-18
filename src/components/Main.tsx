@@ -15,9 +15,6 @@ import { Post } from '../pages/Post/index';
 import { Users } from '../pages/users/index';
 import { userFetchResult } from "../utils/configs/types/api";
 
-/**
- * @todo load first page on Home component
- */
 export const Main =  () => {
     const location = useLocation();
     const user = useAppSelector(state => state.user.data) as userFetchResult;

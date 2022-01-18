@@ -1,5 +1,6 @@
 export enum apiRoute {
     admin        = "admin/login",
+    checkAdmin   = "admin/check-valid",
     slider       = "sliders",
     sliderDelete = "sliders/delete",
     sliderAdd    = "sliders/add",

@@ -41,7 +41,7 @@ export const Header = () => {
     >
             <div className="container-fluid">
                 <div className="main-header-left">
-                    <div className="app-sidebar__toggle" data-bs-toggle="sidebar" onClick={toggleSidebarButton}>
+                    <div className="app-sidebar__toggle mobile_toggle_sidebar_button" data-bs-toggle="sidebar" onClick={toggleSidebarButton}>
                         <span className="open-toggle pointer">
                             <FontAwesomeIcon className="header-icon" icon={faBars} />
                         </span>
