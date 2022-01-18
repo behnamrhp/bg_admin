@@ -4,6 +4,7 @@ import { loginArg } from "../../utils/configs/types/global";
 import { RootState, AppDispatch } from '../store/store';
 import { fetchTemp } from '../../utils/helpers/index';
 import { apiRoute } from "../../utils/configs/constants";
+import storage from 'redux-persist/lib/storage';
 
 export const loginThunk = createAsyncThunk<
 userFetchResult,
@@ -24,13 +25,19 @@ loginArg,
 )
 export const userSlice = createSlice({
     name          : 'user',
-    initialState  : { data : {} as userFetchResult,
+    initialState  : { data : {} as userFetchResult | {},
                       error :  false as (boolean | string),
                       isLoading : false
                     },
     reducers      : {
-        isDarkModeReducer : (state , action: PayloadAction<"1" | "0">) => {
+        isDarkModeReducer : (state : {data : userFetchResult; error: false; isLoading : false}, action: PayloadAction<"1" | "0">) => {
             state.data.is_dark_theme = action.payload
+        },
+        logOutUser        : (state, action : PayloadAction<void>) => {
+            storage.removeItem("persist:bg_d");
+
+             state.data = {};
+             state.isLoading = true;
         }
     },
     extraReducers : builder => {
@@ -53,4 +60,4 @@ export const userSlice = createSlice({
     
 });
 export default userSlice.reducer;
-export const { isDarkModeReducer } = userSlice.actions
+export const { isDarkModeReducer, logOutUser } = userSlice.actions

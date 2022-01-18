@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch,faSun,faMoon } from '@fortawesome/free-solid-svg-icons';
+import { faSearch,faSun,faMoon, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { toggleSidebarButton } from '../utils/helpers/viewHelpers';
 import { motion } from 'framer-motion';
@@ -7,11 +7,12 @@ import { headerVariants } from '../utils/configs/constants/animateVariants';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { fetchTemp } from './../utils/helpers/index';
-import { isDarkModeReducer } from './../redux/slices/userSlice';
+import { isDarkModeReducer, logOutUser } from './../redux/slices/userSlice';
+import { userFetchResult } from '../utils/configs/types/api';
 
 export const Header = () => {
     const Dispatch = useAppDispatch();
-    const user = useAppSelector(state => state.user.data);
+    const user = useAppSelector(state => state.user.data) as userFetchResult;
     const [isDarkMode, setIsDarkMode] = useState<"1" | "0">(user.is_dark_theme);
 
     const isDarkModeHandler = async () => {
@@ -19,6 +20,9 @@ export const Header = () => {
     }
 
 
+    const clickLogOutHandler = async () => {
+        Dispatch(logOutUser());
+    }
 
     useEffect(() => {
         
@@ -45,23 +49,26 @@ export const Header = () => {
                             <FontAwesomeIcon className="header-icon" icon={faTimes} />
                         </span>
                     </div>
-                    <div className="main-header-center mr-3 d-sm-none d-md-none d-lg-block">
-                        <input className="form-control" placeholder="هر چیزی را جستجو کنید ..." type="search" />
-                        <button className="btn search-button">
-                            <FontAwesomeIcon className='d-none d-md-block' icon={faSearch}/>
-                        </button>
+                </div>
+
+                <div className="ps-2 d-flex w-auto">
+                    <div className="d-flex align-items-center">
+                        <input type="checkbox" className="checkbox" checked={(isDarkMode == "1") ? true : false} id="checkbox" onChange={isDarkModeHandler}/>
+                        <label htmlFor="checkbox" className="label pointer">
+                            <FontAwesomeIcon icon={faSun}  />
+
+                            <FontAwesomeIcon icon={faMoon} />
+                            <div className='ball'></div>
+                        </label>    
                     </div>
+                    
+                <button title='خروج' className='no-border-button side-menu__item d-flex flex-row align-items-center me-5' onClick={clickLogOutHandler}>
+                    <FontAwesomeIcon className="header-icon ms-2" icon={faSignOutAlt} />     
+                </button>
                 </div>
-
-                <div className="ps-2">
-                    <input type="checkbox" className="checkbox" checked={(isDarkMode == "1") ? true : false} id="checkbox" onChange={isDarkModeHandler}/>
-                    <label htmlFor="checkbox" className="label pointer">
-                        <FontAwesomeIcon icon={faSun}  />
-
-                        <FontAwesomeIcon icon={faMoon} />
-                        <div className='ball'></div>
-                    </label>    
-                </div>
+                
+                
+                
             </div>
 
                 
