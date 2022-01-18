@@ -93,11 +93,12 @@ export const Slider = () => {
                     {sliderItems(data.data, deleteSliderDispatch)}    
 
                     </div>
-                    {data.page && +data.page.total_page !== 1 && (<Pagination page={data.page} setPage={setPage} />)}
 
                 </div>
             </div>
         )}
+                    {data.page && +data.page.total_page !== 1 && (<Pagination page={data.page} setPage={setPage} />)}
+
         </>
     )
 }

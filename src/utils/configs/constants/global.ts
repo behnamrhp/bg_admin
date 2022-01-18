@@ -2,7 +2,7 @@ export const check_env = !process.env.NODE_ENV || process.env.NODE_ENV === 'deve
 
 export const baseUrl = check_env ? `http://192.168.1.106:8080` : `https://bonyangozar.com`;
 
-export const limitContents = 12;
+export const limitContents = 2;
 export const limitTableData: number = 10;
 export const maxFileSize = 50;
 

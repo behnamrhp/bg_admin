@@ -146,10 +146,13 @@ export const Post = () => {
                         {PostItems()}
 
                     </div>
-                    {data.page && +data.page.total_page !== 1 && (<Pagination page={data.page} setPage={setPage} />)}
 
                 </div>
-            </div>)}
+            </div>
+            
+            
+            )}
+                    {data.page && +data.page.total_page !== 1 && (<Pagination page={data.page} setPage={setPage} />)}
         </>
     )
 }
