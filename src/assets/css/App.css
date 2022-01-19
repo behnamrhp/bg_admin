@@ -363,7 +363,10 @@ body.swal2-height-auto.swal2-shown {
   font-weight: bold;
 }
 
-.sidenav-toggled .mobile_toggle_sidebar_button {
-  position: absolute;
-  right: 240px;
+@media screen and (max-width : 768px){
+  .sidenav-toggled .mobile_toggle_sidebar_button {
+    position: absolute;
+    right: 240px;
+  }
 }
+
