@@ -1,6 +1,6 @@
 export const check_env = !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
 
-export const baseUrl = check_env ? `http://192.168.1.106:8080` : `http://bonyangozar.com`;
+export const baseUrl = check_env ? `http://192.168.1.106:8080` : window.location.origin;
 
 export const limitContents          = 9;
 export const limitSliderContents    = 12
