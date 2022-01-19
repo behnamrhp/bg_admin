@@ -46,11 +46,12 @@ const sliderItems = (sliders: EntityState<sliderFetchResult>, deleteSliderDispat
 export const Slider = () => {
     const [ page, setPage ]                 = useState<number>(1);
     const [ isModalOpen , setModalOpen ]    = useState<boolean>(false);
-    
     const { data , isLoading, isError } = useGetSliderQuery(page);
     const [ deleteSliderDispatch, deleteResult ] = useDeleteSliderMutation();
 
     useEffect(() => {
+    console.log(data);
+
         if(data?.page.total_page === 1 && +page !== 1) setPage(1); 
     }
     ,[data]);
@@ -97,7 +98,7 @@ export const Slider = () => {
                 </div>
             </div>
         )}
-                    {data.page && +data.page.total_page !== 1 && (<Pagination page={data.page} setPage={setPage} />)}
+                    {!isError && data && data.page && +data.page.total_page !== 1 && (<Pagination page={data.page} setPage={setPage} />)}
 
         </>
     )

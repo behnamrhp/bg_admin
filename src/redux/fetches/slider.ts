@@ -1,6 +1,6 @@
 import { fetchBaseQuery, createApi } from '@reduxjs/toolkit/query/react';
 import { Reducers } from '../../utils/configs/constants';
-import { baseUrl, limitContents } from '../../utils/configs/constants/global';
+import { baseUrl, limitSliderContents } from '../../utils/configs/constants/global';
 import { sliderFetchResult, apiTemplatePaginatedType, Final_result, booleanResult } from '../../utils/configs/types/api';
 import { apiRoute } from '../../utils/configs/constants/apiRoutes';
 import { createEntityAdapter } from '@reduxjs/toolkit';
@@ -17,7 +17,7 @@ export const sliderApi = createApi({
     tagTypes    : [sliderTag],
     endpoints   : builder => ({
         getSlider : builder.query<Final_result<sliderFetchResult>, number>({
-            query        : (page) => apiRoute.slider + `?page=${page}&lim=${limitContents}`,
+            query        : (page) => apiRoute.slider + `?page=${page}&lim=${limitSliderContents}`,
             providesTags : (result : Final_result<sliderFetchResult>, error, page) => {
                 if(!result || !result.data) return [{type: sliderTag, id : 'PARTIAL-LIST'}];
 

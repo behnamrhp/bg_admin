@@ -45,7 +45,7 @@ export const UserPresentation = ({usersListData, usersListIsLoading, usersListIs
     {/* header */}
 	<div className="container content-container">
     				<div className="row">
-						<div className="col-sm-12 col-lg-5 col-xl-4">
+						<div className="col-sm-12 col-lg-5 col-xl-4 pt-4">
 							<div className="card custom-card">
 								<div className="">
 									<div className="main-content-app main-content-contacts pt-0">
@@ -60,7 +60,7 @@ export const UserPresentation = ({usersListData, usersListIsLoading, usersListIs
 								</div>
 							</div>
 						</div>
-						<div className="col-sm-12 col-lg-7 col-xl-8">
+						<div className="col-sm-12 col-lg-7 col-xl-8 pt-4">
 							<div className="">
 								<a className="main-header-arrow" href="#" id="ChatBodyHide"><i className="icon ion-md-arrow-back"></i></a>
 								<div className="main-content-body main-content-body-contacts card custom-card">

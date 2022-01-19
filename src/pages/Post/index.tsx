@@ -95,6 +95,7 @@ export const Post = () => {
     }
 
     useEffect(() => {
+        console.log(data);
         if(data?.page.total_page === 1 && +page !== 1) setPage(1); 
     }, [data])
 
@@ -127,7 +128,7 @@ export const Post = () => {
                 </div>
             </div>
             
-            {data && !data.error && !isError &&  (<div className="container content-container">
+            {!isError && data && !data.error &&  (<div className="container content-container">
                 <div className="row">
                     <div className="col-12 row justify-content-end ps-4 add-content">
             
@@ -152,7 +153,7 @@ export const Post = () => {
             
             
             )}
-                    {data.page && +data.page.total_page !== 1 && (<Pagination page={data.page} setPage={setPage} />)}
+                    {!isError && data && data.page && +data.page.total_page !== 1 && (<Pagination page={data.page} setPage={setPage} />)}
         </>
     )
 }
