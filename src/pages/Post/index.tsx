@@ -95,7 +95,6 @@ export const Post = () => {
     }
 
     useEffect(() => {
-        console.log(data);
         if(data?.page.total_page === 1 && +page !== 1) setPage(1); 
     }, [data])
 

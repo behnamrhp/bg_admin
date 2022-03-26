@@ -22,8 +22,10 @@ const deleteSlider = async (e:React.MouseEvent<HTMLElement, MouseEvent>, deleteS
         showCancelButton: true,
     })
     if(!alert_result) return;
-    const slider   = e.target as HTMLElement;
-    const sliderId = slider.parentElement.dataset.id;
+    console.log(e.target);
+    const slider   = e.target as any;
+    const sliderId = slider.closest('.slider-item').dataset.id;
+    console.log(sliderId);
 
     await deleteSliderDispatch(sliderId);
 }
@@ -50,7 +52,6 @@ export const Slider = () => {
     const [ deleteSliderDispatch, deleteResult ] = useDeleteSliderMutation();
 
     useEffect(() => {
-    console.log(data);
 
         if(data?.page.total_page === 1 && +page !== 1) setPage(1); 
     }

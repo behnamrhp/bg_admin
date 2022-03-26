@@ -43,7 +43,6 @@ export const SelfEvaluation = ({selUser}: {selUser : usersListFetchResult}) => {
     },[data, selfQuestionTab]);
 
     const selfQuestionItem = () => {
-        console.log(data);
 		if(data.data.ids.length === 0 ) return (
 			<tr>
 				<td colSpan={4} className="t-center">

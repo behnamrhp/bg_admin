@@ -42,7 +42,6 @@ export const UsersList = ({usersListData, usersListIsLoading, usersListIsError, 
     const userItems = (users : EntityState<usersListFetchResult> ) => {
         //for categorize users list
         let alphabetCat = null;
-        
         return users.ids.map((id, i) => {
             const user = users.entities[id];
             if(!user || !user.id) return null;
@@ -51,7 +50,7 @@ export const UsersList = ({usersListData, usersListIsLoading, usersListIsError, 
                 <div key={`usersList__${user.id}`}>
     
                     {/* for categorize users list by first letter of names */}
-                    {( (alphabetCat && alphabetCat !== user.firstname[0]) || !alphabetCat) && (<div className="main-contact-label" >
+                    {( (alphabetCat && user.firstname && alphabetCat !== user.firstname[0]) || !alphabetCat) && (<div className="main-contact-label" >
                         {alphabetCat = user.firstname[0]}
                     </div>)}
                     {/* /for categorize users list by first letter of names */}
@@ -65,7 +64,7 @@ export const UsersList = ({usersListData, usersListIsLoading, usersListIsError, 
                         :
                             (
                                 <div className="avatar-min">
-                                    {user.firstname[0]}
+                                    {user.firstname ? user.firstname[0] : "" }
                                 </div>
                             )
                         }
