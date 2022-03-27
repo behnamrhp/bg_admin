@@ -15,7 +15,7 @@ import { Loading } from '../Loading';
 
 
 
- const PostForm = ({setModalOpen, file, fileValidation, setFileValidation, setFile, src, user, isUpdate, updateParams}: postFormProps) => {  
+ const PostForm = ({setModalOpen, file, fileValidation, setFileValidation, setFile, src, setSrc, user, isUpdate, updateParams}: postFormProps) => {  
     const [ content, setContent ] = useState<string>();
     const [ date, setDate ]       = useState<string>();
 
@@ -67,7 +67,10 @@ import { Loading } from '../Loading';
             })
         }
     }, [resultAddPost, resultUpdatePost]);
-
+    
+    useEffect(() => {
+        if(isUpdate) setSrc(updateParams.image);
+    }, [])
     return (
         <div>
             <Loading isFullWidth={true} isVisible={(resultAddPost.isLoading || resultUpdatePost.isLoading)} />
@@ -122,7 +125,7 @@ import { Loading } from '../Loading';
                 <h6>تصویر پست</h6>
                 <label htmlFor="addSliderInput" className="addPostLabel mt-2 d-flex justify-content-center align-items-center pointer mb-3">
                     <FontAwesomeIcon icon={faPlus} />
-                    {(src || isUpdate) && (<img className="addsliderImg" src={(isUpdate)? updateParams.image : src} />)}
+                    {(src || isUpdate) && (<img className="addsliderImg" src={ src} />)}
                 </label>
                 <input 
                 type="file" 
